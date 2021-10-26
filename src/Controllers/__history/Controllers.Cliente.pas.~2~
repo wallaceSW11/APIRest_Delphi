@@ -1,0 +1,25 @@
+unit Controllers.Cliente;
+
+interface
+
+uses
+  Models.Cliente,
+  System.Generics.Collections;
+
+type
+  TControllerCliente = class
+  public
+    function ObterClientes(): TObjectList<TCliente>;
+  end;
+
+implementation
+
+{ TControllerCliente }
+
+function TControllerCliente.ObterClientes: TObjectList<TCliente>;
+
+begin
+
+end;
+
+end.

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2021/10/26 11:59:36.000.591,C:\Users\wallace\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\dev\Projeto_APIDelphi\APIRest_Delphi\API_Rest.dproj</Transaction>
+    <Transaction>2021/10/26 12:14:06.000.119,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/26 12:14:47.000.434,C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Models\Models.Cliente.pas</Transaction>
+    <Transaction>2021/10/26 12:32:41.000.147,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/26 12:33:04.000.787,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Models\Models.Produto.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/26 12:34:31.000.957,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/26 12:34:47.000.242,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Models\Models.Venda.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/26 12:41:07.000.868,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/26 12:41:37.000.990,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Models\Models.ItensVendidos.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/26 14:47:22.000.680,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/26 14:47:44.000.758,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Controller\Controllers.Cliente.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>

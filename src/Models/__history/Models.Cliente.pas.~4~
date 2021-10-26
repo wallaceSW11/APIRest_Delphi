@@ -1,0 +1,20 @@
+unit Models.Cliente;
+
+interface
+
+type
+  TCliente = class
+  private
+    FDataNascimento: TDateTime;
+    FDocumento: string;
+    FNome: string;
+  public
+    property Nome: string read FNome write FNome;
+    property DataNascimento: TDateTime read FDataNascimento write FDataNascimento;
+    property Documento: string read FDocumento write FDocumento;
+
+  end;
+
+implementation
+
+end.

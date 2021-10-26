@@ -1,0 +1,32 @@
+program API_Rest;
+
+{$APPTYPE CONSOLE}
+
+{$R *.res}
+
+uses
+  Horse,
+  Horse.Jhonson,
+  System.JSON,
+  Models.Cliente in 'src\Models\Models.Cliente.pas',
+  Models.Produto in 'src\Models\Models.Produto.pas',
+  Models.Venda in 'src\Models\Models.Venda.pas';
+
+begin
+  THorse.Use(Jhonson());
+
+
+  THorse.Get('/ping',
+    procedure(Req: THorseRequest; Res: THorseResponse; Next: TProc)
+    var
+      LBody: TJSONObject;
+    begin
+      // Req.Body gives access to the content of the request in string format.
+      // Using jhonson middleware, we can get the content of the request in JSON format.
+
+      LBody := Req.Body<TJSONObject>;
+      Res.Send<TJSONObject>(LBody);
+    end);
+
+  THorse.Listen(9000);
+end.
