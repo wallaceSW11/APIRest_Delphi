@@ -37,28 +37,28 @@ end;
 
 procedure TControllerCliente.ListarClientes(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
-  lCliente: TCliente;
+  lCliente, loutro: TCliente;
   lClientes, l2: TObjectList<TCliente>;
   lLista: TJsonarray;
+  lObj: TJsonObject;
 begin
   lClientes := TObjectList<TCliente>.Create();
 
   lCliente := TCliente.Create('wallace', StrToDate('11/09/1989'), '12345678999');
   lClientes.Add(lCliente);
-  lCliente.Free();
 
   lCliente := TCliente.Create('ferreira', StrToDate('12/09/2019'), '12345678999');
   lClientes.Add(lCliente);
-  lCliente.Free();
+  
+  lLista := TJSONArray.Create;
 
-//  lLista := TJSONArray.Create;
-//  lLista := TJson.JsonToObject<TCliente>(lClientes);
+  for loutro in lClientes do
+  begin
+    lObj := TJson.ObjectToJsonObject(loutro);
+    lLista.AddElement(lObj);    
+  end;
 
-
-
-  //Res.Send<TJSONArray>(TJson.ObjectToJsonObject(lClientes));
-
-//  Res.Send<TJsonObject>(TJson.ObjectToJsonObject(lClientes)).Status(THTTPStatus.OK);
+  Res.Send<TJSONArray>(lLista);
 end;
 
 procedure TControllerCliente.Routes();
