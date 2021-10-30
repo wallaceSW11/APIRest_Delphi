@@ -9,14 +9,15 @@ uses
   Data.DB,
   Data.Win.ADODB,
   Contexto.Conexao.Interfaces,
-  Contexto.Conexao;
+  Contexto.Query;
 
 type
   TRepositoryCliente = class
   private
     FConexao: IConexao;
-    FQuery: TADOQuery;
+    FQuery: IQuery;
     FCliente: TCliente;
+    FDataSet: TDataSet;
 
   public
     function ObterClientes(): TObjectList<TCliente>;
@@ -39,10 +40,11 @@ end;
 
 constructor TRepositoryCliente.Create;
 begin
-  FConexao := TConexao.NovaInstancia();
-  FQuery := TADOQuery.Create(nil);
-  FQuery.Connection := FConexao.Conexao();
+  FQuery := TQuery.NovaInstancia();
+
   FCliente := TCliente.Create();
+
+  FDataSet := TDataSet.Create(nil);
 end;
 
 function TRepositoryCliente.CriarCliente(const pCliente: TCliente): TCliente;
@@ -52,8 +54,6 @@ end;
 
 destructor TRepositoryCliente.Destroy;
 begin
-  FQuery.Connection.Close();
-  FQuery.Free();
   FCliente.Free();
 
   inherited;
@@ -65,33 +65,22 @@ begin
 end;
 
 function TRepositoryCliente.ObterClientePorIdentificador(const pIdentificadorCliente: string): TCliente;
-var
-  lCliente: TCliente;  
+const
+  SELECT_CLIENTE_IDENTIFICADOR = 'Select Id, Nome, DataNascimento, Documento From Cliente Where Id=''%s''';
 begin
-  
+  FDataSet := FQuery.Query(Format(SELECT_CLIENTE_IDENTIFICADOR, [pIdentificadorCliente]));
 
-  FQuery.Close();
-  FQuery.SQL.Add('Select * From Clientes');
+  if (FDataSet.RecordCount = 0) then
+    Exit(nil);
 
-  try
-    FQuery.Open();
-  except 
-    on E: Exception do
-      Writeln('Erro ao realizar a consulta: ' + E.Message);
-  end;
-  
-
-  FCliente.Id := FQuery.FieldByName('Id').AsString;
-  FCliente.Nome := FQuery.FieldByName('Nome').AsString;
-  FCliente.DataNascimento := FQuery.FieldByName('DataNascimento').AsDateTime;
-  FCliente.Documento := FQuery.FieldByName('Documento').AsString;
-
-//   := TCliente.Create(FQuery.FieldByName('Nome').AsString, StrToDate('11/09/1989'), '12345678999');
-
+  FCliente.Id := FDataSet.FieldByName('Id').AsString;
+  FCliente.Nome := FDataSet.FieldByName('Nome').AsString;
+  FCliente.DataNascimento := FDataSet.FieldByName('DataNascimento').AsDateTime;
+  FCliente.Documento := FDataSet.FieldByName('Documento').AsString;
   Result := FCliente;
 end;
 
-function TRepositoryCliente.ObterClientes: TObjectList<TCliente>;
+function TRepositoryCliente.ObterClientes(): TObjectList<TCliente>;
 begin
 
 end;

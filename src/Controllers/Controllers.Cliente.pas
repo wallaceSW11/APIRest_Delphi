@@ -35,15 +35,15 @@ begin
   lRepository := TRepositoryCliente.Create();
 
   lCliente := TCliente.Create();
-  lCliente := lRepository.ObterClientePorIdentificador('12');
+  lCliente := lRepository.ObterClientePorIdentificador(Req.Params['id']);
 
   if (not(Assigned(lCliente))) then
   begin
-    Res.Send('Cliente não encontrado com o id: ' + '12').Status(404);
+    Res.Send('Cliente não encontrado com o id: ' + '12').Status(THTTPStatus.NotFound);
     Exit;
   end;
 
-  Res.Send<TJsonObject>(TJson.ObjectToJsonObject(lRepository.ObterClientePorIdentificador('12'))).Status(THTTPStatus.OK);
+  Res.Send<TJsonObject>(TJson.ObjectToJsonObject(lCliente)).Status(THTTPStatus.OK);
 end;
 
 procedure TControllerCliente.ListarClientes(Req: THorseRequest; Res: THorseResponse; Next: TProc);

@@ -145,6 +145,7 @@
         <DCCReference Include="src\Models\Models.CadastroBase.pas"/>
         <DCCReference Include="src\Contexto\Contexto.Conexao.pas"/>
         <DCCReference Include="src\Contexto\Contexto.Conexao.Interfaces.pas"/>
+        <DCCReference Include="src\Contexto\Contexto.Query.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

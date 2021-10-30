@@ -1,0 +1,28 @@
+unit Contexto.Query;
+
+interface
+
+uses
+  Contexto.Conexao.Interfaces,
+  Contexto.Conexao,
+  Data.Win.ADODB,
+  Data.DB;
+
+type
+  TQuery = class(TInterfacedObject, IQuery)
+
+  public
+    function Query(const pComandoSQL: string): TDataSet;
+
+  end;
+
+implementation
+
+{ TQuery }
+
+function TQuery.Query(const pComandoSQL: string): TDataSet;
+begin
+
+end;
+
+end.

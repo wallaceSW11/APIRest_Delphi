@@ -18,47 +18,16 @@ uses
   Repositories.Cliente in 'src\Repositories\Repositories.Cliente.pas',
   Models.CadastroBase in 'src\Models\Models.CadastroBase.pas',
   Contexto.Conexao in 'src\Contexto\Contexto.Conexao.pas',
-  Contexto.Conexao.Interfaces in 'src\Contexto\Contexto.Conexao.Interfaces.pas';
+  Contexto.Conexao.Interfaces in 'src\Contexto\Contexto.Conexao.Interfaces.pas',
+  Contexto.Query in 'src\Contexto\Contexto.Query.pas';
 
 var
-    users: TJsonArray;
-    lcli: TJSONObject;
-    lControllerCliente: TControllerCliente;
-
+  lControllerCliente: TControllerCliente;
 begin
   ReportMemoryLeaksOnShutdown := True;
 //  IsConsole:= False;
-
-
   THorse.Use(Jhonson());
-
   lControllerCliente := TControllerCliente.Create();
-
   lControllerCliente.Routes();
-
-
-
-
-
-
-//  THorse.Get('/cliente/:id',
-//    procedure(Req: THorseRequest; Res: THorseResponse; Next: TProc)
-//    var
-//      lControllerCliente: TControllerCliente;
-//      lId: string;
-//    begin
-//      lId := Req.Params.Items['id'];
-//
-//      lControllerCliente := TControllerCliente.Create();
-//
-//      lcli := TJson.ObjectToJsonObject(lControllerCliente.ObterCliente(lid));
-//
-//      Res.Send<TJSONObject>(lcli);
-//
-//    end);
-
-    THorse.Listen(9000);
-
-
-
+  THorse.Listen(9000);
 end.
