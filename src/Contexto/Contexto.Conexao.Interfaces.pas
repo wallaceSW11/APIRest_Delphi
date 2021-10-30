@@ -15,6 +15,7 @@ type
   IQuery = interface
     ['{D15FD4B4-670C-4E7A-A52A-E6FAC02DDE76}']
     function Query(const pComandoSQL: string): TDataSet;
+    procedure Exec(const pComandoSQL: string);
   end;
 
 

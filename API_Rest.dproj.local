@@ -25,5 +25,9 @@
     <Transaction>2021/10/29 21:20:08.000.139,C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Contexto\Contexto.Conexao.Interfaces.pas</Transaction>
     <Transaction>2021/10/30 10:41:14.221,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
     <Transaction>2021/10/30 10:41:29.975,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Contexto\Contexto.Query.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/30 11:45:12.881,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/30 11:45:42.326,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Repositories\Repositories.Interfaces.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/30 12:18:59.588,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/30 12:19:15.926,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Controllers\Controllers.Interfaces.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>

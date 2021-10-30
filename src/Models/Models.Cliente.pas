@@ -16,7 +16,7 @@ type
     property DataNascimento: TDateTime read FDataNascimento write FDataNascimento;
     property Documento: string read FDocumento write FDocumento;
   constructor Create(); overload;
-  constructor Create(const pNome: string; const pDataNascimento: TDateTime; const pDocumento: string); overload;
+  constructor Create(const pNome: string; const pDataNascimento: TDateTime; const pDocumento: string; const pId: string = ''); overload;
 
   end;
 
@@ -24,11 +24,10 @@ implementation
 
 { TCliente }
 
-constructor TCliente.Create(const pNome: string;
-  const pDataNascimento: TDateTime; const pDocumento: string);
+constructor TCliente.Create(const pNome: string; const pDataNascimento: TDateTime; const pDocumento: string; const pId: string);
 begin
   inherited Create();
-
+  Self.Id := pId;
   Self.Nome := pNome;
   Self.DataNascimento := pDataNascimento;
   Self.Documento := pDocumento;

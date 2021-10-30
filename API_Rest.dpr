@@ -5,7 +5,6 @@ program API_Rest;
 {$R *.res}
 
 uses
-  FastMMMemLeakMonitor,
   Horse,
   Horse.Jhonson,
   Rest.JSON,
@@ -19,15 +18,18 @@ uses
   Models.CadastroBase in 'src\Models\Models.CadastroBase.pas',
   Contexto.Conexao in 'src\Contexto\Contexto.Conexao.pas',
   Contexto.Conexao.Interfaces in 'src\Contexto\Contexto.Conexao.Interfaces.pas',
-  Contexto.Query in 'src\Contexto\Contexto.Query.pas';
+  Contexto.Query in 'src\Contexto\Contexto.Query.pas',
+  Repositories.Interfaces in 'src\Repositories\Repositories.Interfaces.pas',
+  Controllers.Interfaces in 'src\Controllers\Controllers.Interfaces.pas';
 
 var
-  lControllerCliente: TControllerCliente;
+  FControllerCliente: IControllerCliente;
 begin
   ReportMemoryLeaksOnShutdown := True;
-//  IsConsole:= False;
+  //IsConsole:= False;
+
   THorse.Use(Jhonson());
-  lControllerCliente := TControllerCliente.Create();
-  lControllerCliente.Routes();
+  FControllerCliente := TControllerCliente.NovaInstancia();
+  FControllerCliente.Routes();
   THorse.Listen(9000);
 end.

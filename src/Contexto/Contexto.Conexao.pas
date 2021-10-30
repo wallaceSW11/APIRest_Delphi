@@ -13,9 +13,9 @@ type
   private
     FConnection: TADOConnection;
   constructor Create( );
-  destructor Destroy; override;
   public
     class function NovaInstancia(): IConexao;
+    destructor Destroy; override;
     function Conexao(): TADOConnection;
 
   end;

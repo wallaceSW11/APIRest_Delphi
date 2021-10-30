@@ -1,0 +1,48 @@
+unit Models.CadastroBase;
+
+interface
+
+uses
+  System.SysUtils;
+
+type
+  TCadastroBase = class
+  private
+    FId: string;
+    function GetId: string;
+    procedure SetId(const Value: string);
+  protected
+    constructor Create();
+  public
+    property Id: string read GetId write SetId;
+  end;
+
+implementation
+
+{ TCadastroBase }
+
+constructor TCadastroBase.Create;
+var
+  lGuid: TGuid;
+begin
+//  CreateGUID(lGuid);
+//  Self.Id := GUIDToString(lGuid).Replace('{', EmptyStr).Replace('}', EmptyStr);
+end;
+
+function TCadastroBase.GetId(): string;
+var
+  lGuid: TGuid;
+begin
+  if (not Self.FId.Trim().IsEmpty()) then
+    Exit(FId);
+
+  CreateGUID(lGuid);
+  Self.Id := GUIDToString(lGuid).Replace('{', EmptyStr).Replace('}', EmptyStr);
+end;
+
+procedure TCadastroBase.SetId(const Value: string);
+begin
+  Self.FId := Value;
+end;
+
+end.

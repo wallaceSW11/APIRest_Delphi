@@ -24,7 +24,6 @@ var
   lGuid: TGuid;
 begin
   CreateGUID(lGuid);
-  Self.Id := GUIDToString(lGuid);
+  Self.Id := GUIDToString(lGuid).Replace('{', EmptyStr).Replace('}', EmptyStr);
 end;
-
 end.

@@ -18,6 +18,7 @@ type
     destructor Destroy; override;
   public
     function Query(const pComandoSQL: string): TDataSet;
+    procedure Exec(const pComandoSQL: string);
     class function NovaInstancia(): IQuery;
 
   end;
@@ -40,6 +41,20 @@ begin
   inherited;
 end;
 
+procedure TQuery.Exec(const pComandoSQL: string);
+begin
+  FQuery.Close();
+  FQuery.SQL.Clear();
+  FQuery.SQL.Add(pComandoSQL);
+
+  try
+    FQuery.ExecSQL();
+  except
+    on E: Exception do
+      Writeln('Falha ao executar o comando: ' + E.Message);
+  end;
+end;
+
 class function TQuery.NovaInstancia: IQuery;
 begin
   Result := Self.Create();
@@ -57,7 +72,7 @@ begin
     FQuery.Open();
   except
     on E: Exception do
-      Writeln('Erro ao realizar a consulta: ' + E.Message);
+      Writeln('Falha ao realizar a consulta: ' + E.Message);
   end;
 
   Result := FQuery;
