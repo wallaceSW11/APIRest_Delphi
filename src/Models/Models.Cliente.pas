@@ -2,8 +2,11 @@ unit Models.Cliente;
 
 interface
 
+uses
+  Models.CadastroBase;
+
 type
-  TCliente = class
+  TCliente = class (TCadastroBase)
   private
     FDataNascimento: TDateTime;
     FDocumento: string;
@@ -24,6 +27,8 @@ implementation
 constructor TCliente.Create(const pNome: string;
   const pDataNascimento: TDateTime; const pDocumento: string);
 begin
+  inherited Create();
+
   Self.Nome := pNome;
   Self.DataNascimento := pDataNascimento;
   Self.Documento := pDocumento;
@@ -31,6 +36,7 @@ end;
 
 constructor TCliente.Create();
 begin
+  inherited Create();
 
 end;
 

@@ -9,7 +9,8 @@ uses
   Horse,
   Horse.Commons,
   System.JSON,
-  REST.Json;
+  REST.Json,
+  Repositories.Cliente;
 
 type
   TControllerCliente = class
@@ -29,10 +30,20 @@ implementation
 procedure TControllerCliente.ListarClientePorId(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   lCliente: TCliente;
+  lRepository: TRepositoryCliente;
 begin
-  lCliente := TCliente.Create('wallace', StrToDate('11/09/1989'), '12345678999');
+  lRepository := TRepositoryCliente.Create();
 
-  Res.Send<TJsonObject>(TJson.ObjectToJsonObject(lCliente)).Status(THTTPStatus.OK);
+  lCliente := TCliente.Create();
+  lCliente := lRepository.ObterClientePorIdentificador('12');
+
+  if (not(Assigned(lCliente))) then
+  begin
+    Res.Send('Cliente não encontrado com o id: ' + '12').Status(404);
+    Exit;
+  end;
+
+  Res.Send<TJsonObject>(TJson.ObjectToJsonObject(lRepository.ObterClientePorIdentificador('12'))).Status(THTTPStatus.OK);
 end;
 
 procedure TControllerCliente.ListarClientes(Req: THorseRequest; Res: THorseResponse; Next: TProc);
@@ -55,7 +66,7 @@ begin
   for loutro in lClientes do
   begin
     lObj := TJson.ObjectToJsonObject(loutro);
-    lLista.AddElement(lObj);    
+    lLista.AddElement(lObj);
   end;
 
   Res.Send<TJSONArray>(lLista);

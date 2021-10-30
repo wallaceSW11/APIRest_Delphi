@@ -1,0 +1,7 @@
+unit Contexto.Conexao.Interfaces;
+
+interface
+
+implementation
+
+end.

@@ -1,0 +1,38 @@
+unit Contexto.Conexao;
+
+interface
+
+uses
+  FireDAC.Comp.Client;
+
+type
+  TConexao = class
+  private
+    FConnection: TFDConnection;
+  class procedure NovaInstancia();
+  constructor Create( );
+  destructor Destroy; override;
+  end;
+
+implementation
+
+{ TConexao }
+
+constructor TConexao.Create;
+begin
+  FConnection := TFDConnection.Create(nil);
+end;
+
+destructor TConexao.Destroy;
+begin
+  FConnection.Close();
+  FConnection.Free();
+  inherited;
+end;
+
+class procedure TConexao.NovaInstancia;
+begin
+
+end;
+
+end.

@@ -1,0 +1,17 @@
+unit Contexto.Conexao;
+
+interface
+
+uses
+  FireDAC.Comp.Client;
+
+type
+  TConexao = class
+  private
+    FConnection: TFDConnection;
+
+  end;
+
+implementation
+
+end.

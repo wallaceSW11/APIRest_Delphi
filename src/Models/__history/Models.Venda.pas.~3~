@@ -1,0 +1,34 @@
+unit Models.Venda;
+
+interface
+
+uses
+  Models.Cliente;
+
+type
+  TVenda = class
+  private
+    FDataVenda: TDateTime;
+    FCliente: TCliente;
+  public
+    property DataVenda: TDateTime read FDataVenda write FDataVenda;
+    property Cliente: TCliente read FCliente write FCliente;
+    constructor Create(); overload;
+    constructor Create( const pClient: TCliente); overload;
+  end;
+
+implementation
+
+{ TVenda }
+
+constructor TVenda.Create(const pClient: TCliente);
+begin
+  Self.Cliente := pClient;
+end;
+
+constructor TVenda.Create();
+begin
+
+end;
+
+end.

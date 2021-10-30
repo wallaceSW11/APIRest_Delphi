@@ -12,5 +12,16 @@
     <Transaction>2021/10/26 12:41:37.000.990,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Models\Models.ItensVendidos.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
     <Transaction>2021/10/26 14:47:22.000.680,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
     <Transaction>2021/10/26 14:47:44.000.758,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Controller\Controllers.Cliente.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/29 18:49:21.000.152,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/29 18:50:21.000.894,C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Repositories\Repositories.Cliente.pas</Transaction>
+    <Transaction>2021/10/29 20:06:21.958,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/29 20:06:43.206,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Models\Models.CadastroBase.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/29 20:37:30.075,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/29 20:39:32.830,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/29 20:39:54.826,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Repositories\Repositories.Conexao.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/29 20:41:25.969,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Contexto\Contexto.Conexao.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Repositories\Repositories.Conexao.pas</Transaction>
+    <Transaction>2021/10/29 20:48:13.781,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/29 21:19:47.011,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/29 21:20:08.139,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Contexto\Contexto.Conexao.Interfaces.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>

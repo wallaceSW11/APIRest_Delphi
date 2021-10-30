@@ -141,6 +141,10 @@
         <DCCReference Include="src\Models\Models.Venda.pas"/>
         <DCCReference Include="src\Models\Models.ItensVendidos.pas"/>
         <DCCReference Include="src\Controllers\Controllers.Cliente.pas"/>
+        <DCCReference Include="src\Repositories\Repositories.Cliente.pas"/>
+        <DCCReference Include="src\Models\Models.CadastroBase.pas"/>
+        <DCCReference Include="src\Contexto\Contexto.Conexao.pas"/>
+        <DCCReference Include="src\Contexto\Contexto.Conexao.Interfaces.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

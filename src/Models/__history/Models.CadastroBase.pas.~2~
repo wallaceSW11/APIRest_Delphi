@@ -1,0 +1,26 @@
+unit Models.CadastroBase;
+
+interface
+
+uses
+  System.SysUtils;
+
+type
+  TCadastroBase = class
+  private
+    FId: TGuid;
+  protected
+    property Id: TGuid read FId write FId;
+    constructor Create();
+  end;
+
+implementation
+
+{ TCadastroBase }
+
+constructor TCadastroBase.Create;
+begin
+  CreateGUID(FId);
+end;
+
+end.
