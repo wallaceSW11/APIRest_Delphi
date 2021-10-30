@@ -31,7 +31,6 @@ type
     procedure Routes();
     class function NovaInstancia(): IControllerProduto;
     destructor Destroy(); override;
-
   end;
 
 implementation
@@ -40,7 +39,7 @@ implementation
 
 procedure TControllerProduto.AtualizarProduto(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 const
-  FALHA_AO_ATUALIZAR_PRODUTO = 'Falha ao atualizar Produto.';
+  FALHA_AO_ATUALIZAR_PRODUTO = 'Falha ao atualizar o produto.';
 begin
   if (not ProdutoExiste(Res, Req.Params['id'])) then
     Exit();
@@ -56,7 +55,7 @@ end;
 
 function TControllerProduto.ProdutoExiste(Res: THorseResponse; const pIdentificadorProduto: string): Boolean;
 const
-  PRODUTO_NAO_LOCALIZADO = 'Não foi localizado o Produto com o id "%s"';
+  PRODUTO_NAO_LOCALIZADO = 'Não foi localizado o produto com o id "%s"';
 begin
   Result := True;
 
@@ -95,26 +94,21 @@ begin
 end;
 
 procedure TControllerProduto.ExcluirProduto(Req: THorseRequest; Res: THorseResponse; Next: TProc);
-const
-  ATUALIZADO_COM_SUCESSO = 'Atualizado com sucesso.';
 begin
   if (not ProdutoExiste(Res, Req.Params['id'])) then
     Exit();
 
   FRepositorioProduto.ExcluirProduto(Req.Params['id']);
-  Res.Send(ATUALIZADO_COM_SUCESSO).Status(THTTPStatus.NoContent);
+  Res.Send('').Status(THTTPStatus.NoContent);
 end;
 
 procedure TControllerProduto.ListarProdutoPorId(Req: THorseRequest; Res: THorseResponse; Next: TProc);
-const
-  PRODUTO_NAO_ENCONTRADO = 'Produto não encontrado com o id: "%s"';
 begin
-  FProduto := FRepositorioProduto.ObterProdutoPorIdentificador(Req.Params['id']);
+  if (not ProdutoExiste(Res, Req.Params['id'])) then
+    Exit();
 
-  if (Assigned(FProduto)) then
-    Res.Send<TJsonObject>(TJson.ObjectToJsonObject(FProduto)).Status(THTTPStatus.OK)
-  else
-    Res.Send(Format(PRODUTO_NAO_ENCONTRADO, [Req.Params['id']])).Status(THTTPStatus.NotFound);
+  FProduto := FRepositorioProduto.ObterProdutoPorIdentificador(Req.Params['id']);
+  Res.Send<TJsonObject>(TJson.ObjectToJsonObject(FProduto)).Status(THTTPStatus.OK);
 end;
 
 procedure TControllerProduto.ListarProdutos(Req: THorseRequest; Res: THorseResponse; Next: TProc);
@@ -143,7 +137,6 @@ begin
 
   Res.Send<TJSONArray>(lJsonArray);
 end;
-
 
 class function TControllerProduto.NovaInstancia(): IControllerProduto;
 begin

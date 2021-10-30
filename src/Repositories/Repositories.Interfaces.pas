@@ -5,6 +5,7 @@ interface
 uses
   Models.Cliente,
   Models.Produto,
+  Models.Venda,
   System.Generics.Collections;
 
 type
@@ -24,6 +25,15 @@ type
     function AtualizarProduto(const pIdentificadorProduto: string; const pProduto: TProduto): TProduto;
     function ProdutoExiste(const pIdentificadorProduto: string): Boolean;
     procedure ExcluirProduto(const pIdentificadorProduto: string);
+  end;
+
+  IRepositoryVenda = interface
+    function ObterVendas(): TObjectList<TVenda>;
+    function ObterVendaPorIdentificador(const pIdentificadorVenda: string): TVenda;
+    function CriarVenda(const pVenda: TVenda): TVenda;
+    function AtualizarVenda(const pIdentificadorVenda: string; const pVenda: TVenda): TVenda;
+    function VendaExiste(const pIdentificadorVenda: string): Boolean;
+    procedure ExcluirVenda(const pIdentificadorVenda: string);
   end;
 
 implementation

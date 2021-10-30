@@ -33,5 +33,31 @@
     <Transaction>2021/10/30 18:36:46.258,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Repositories\Repositories.Produto.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
     <Transaction>2021/10/30 18:49:23.699,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
     <Transaction>2021/10/30 18:49:47.529,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Controllers\Controllers.Produto.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
-  </Transactions>
+    <Transaction>2021/10/30 19:26:21.341,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/30 19:28:54.115,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Repositories\Repositories.Venda.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/30 19:44:28.035,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/30 19:46:36.733,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Controllers\Controllers.Venda.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+  </Transactions>  <ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="src"/>
+    <File Path="src\Contexto"/>
+    <File Path="src\Contexto\Contexto.Conexao.Interfaces.pas"/>
+    <File Path="src\Contexto\Contexto.Conexao.pas"/>
+    <File Path="src\Contexto\Contexto.Query.pas"/>
+    <File Path="src\Controllers"/>
+    <File Path="src\Controllers\Controllers.Cliente.pas"/>
+    <File Path="src\Controllers\Controllers.Interfaces.pas"/>
+    <File Path="src\Controllers\Controllers.Produto.pas"/>
+    <File Path="src\Controllers\Controllers.Venda.pas"/>
+    <File Path="src\Models"/>
+    <File Path="src\Models\Models.CadastroBase.pas"/>
+    <File Path="src\Models\Models.Cliente.pas"/>
+    <File Path="src\Models\Models.ItensVendidos.pas"/>
+    <File Path="src\Models\Models.Produto.pas"/>
+    <File Path="src\Models\Models.Venda.pas"/>
+    <File Path="src\Repositories"/>
+    <File Path="src\Repositories\Repositories.Cliente.pas"/>
+    <File Path="src\Repositories\Repositories.Interfaces.pas"/>
+    <File Path="src\Repositories\Repositories.Produto.pas"/>
+    <File Path="src\Repositories\Repositories.Venda.pas"/>
+  </ProjectSortOrder>
 </BorlandProject>

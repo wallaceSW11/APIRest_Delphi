@@ -150,6 +150,8 @@
         <DCCReference Include="src\Controllers\Controllers.Interfaces.pas"/>
         <DCCReference Include="src\Repositories\Repositories.Produto.pas"/>
         <DCCReference Include="src\Controllers\Controllers.Produto.pas"/>
+        <DCCReference Include="src\Repositories\Repositories.Venda.pas"/>
+        <DCCReference Include="src\Controllers\Controllers.Venda.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

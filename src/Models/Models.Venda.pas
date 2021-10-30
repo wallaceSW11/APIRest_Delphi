@@ -15,17 +15,19 @@ type
     property DataVenda: TDateTime read FDataVenda write FDataVenda;
     property Cliente: TCliente read FCliente write FCliente;
     constructor Create(); overload;
-    constructor Create( const pClient: TCliente); overload;
+    constructor Create(const pData: TDateTime; const pClient: TCliente; const pId: string = ''); overload;
   end;
 
 implementation
 
 { TVenda }
 
-constructor TVenda.Create(const pClient: TCliente);
+constructor TVenda.Create(const pData: TDateTime; const pClient: TCliente; const pId: string);
 begin
   inherited Create();
+  Self.DataVenda := pData;
   Self.Cliente := pClient;
+  Self.Id := pId;
 end;
 
 constructor TVenda.Create();

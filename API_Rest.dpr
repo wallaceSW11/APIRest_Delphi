@@ -22,11 +22,14 @@ uses
   Repositories.Interfaces in 'src\Repositories\Repositories.Interfaces.pas',
   Controllers.Interfaces in 'src\Controllers\Controllers.Interfaces.pas',
   Repositories.Produto in 'src\Repositories\Repositories.Produto.pas',
-  Controllers.Produto in 'src\Controllers\Controllers.Produto.pas';
+  Controllers.Produto in 'src\Controllers\Controllers.Produto.pas',
+  Repositories.Venda in 'src\Repositories\Repositories.Venda.pas',
+  Controllers.Venda in 'src\Controllers\Controllers.Venda.pas';
 
 var
   FControllerCliente: IControllerCliente;
   FControllerProduto: IControllerProduto;
+  FControllerVenda: IControllerVenda;
 begin
   ReportMemoryLeaksOnShutdown := True;
   //IsConsole:= False;
@@ -36,5 +39,7 @@ begin
   FControllerCliente.Routes();
   FControllerProduto := TControllerProduto.NovaInstancia();
   FControllerProduto.Routes();
+  FControllerVenda := TControllerVenda.NovaInstancia();
+  FControllerVenda.Routes();
   THorse.Listen(9000);
 end.

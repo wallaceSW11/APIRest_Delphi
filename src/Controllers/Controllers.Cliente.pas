@@ -31,7 +31,6 @@ type
     procedure Routes();
     class function NovaInstancia(): IControllerCliente;
     destructor Destroy(); override;
-
   end;
 
 implementation
@@ -95,26 +94,21 @@ begin
 end;
 
 procedure TControllerCliente.ExcluirCliente(Req: THorseRequest; Res: THorseResponse; Next: TProc);
-const
-  ATUALIZADO_COM_SUCESSO = 'Atualizado com sucesso.';
 begin
   if (not ClienteExiste(Res, Req.Params['id'])) then
     Exit();
 
   FRepositorioCliente.ExcluirCliente(Req.Params['id']);
-  Res.Send(ATUALIZADO_COM_SUCESSO).Status(THTTPStatus.NoContent);
+  Res.Send('').Status(THTTPStatus.NoContent);
 end;
 
 procedure TControllerCliente.ListarClientePorId(Req: THorseRequest; Res: THorseResponse; Next: TProc);
-const
-  CLIENTE_NAO_ENCONTRADO = 'Cliente não encontrado com o id: "%s"';
 begin
-  FCliente := FRepositorioCliente.ObterClientePorIdentificador(Req.Params['id']);
+  if (not ClienteExiste(Res, Req.Params['id'])) then
+    Exit();
 
-  if (Assigned(FCliente)) then
-    Res.Send<TJsonObject>(TJson.ObjectToJsonObject(FCliente)).Status(THTTPStatus.OK)
-  else
-    Res.Send(Format(CLIENTE_NAO_ENCONTRADO, [Req.Params['id']])).Status(THTTPStatus.NotFound);
+  FCliente := FRepositorioCliente.ObterClientePorIdentificador(Req.Params['id']);
+  Res.Send<TJsonObject>(TJson.ObjectToJsonObject(FCliente)).Status(THTTPStatus.OK);
 end;
 
 procedure TControllerCliente.ListarClientes(Req: THorseRequest; Res: THorseResponse; Next: TProc);
@@ -143,7 +137,6 @@ begin
 
   Res.Send<TJSONArray>(lJsonArray);
 end;
-
 
 class function TControllerCliente.NovaInstancia(): IControllerCliente;
 begin
