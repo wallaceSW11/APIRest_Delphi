@@ -15,12 +15,11 @@ type
     FConexao: IConexao;
     FQuery: TADOQuery;
     constructor Create( );
-    destructor Destroy; override;
   public
     function Query(const pComandoSQL: string): TDataSet;
     procedure Exec(const pComandoSQL: string);
     class function NovaInstancia(): IQuery;
-
+    destructor Destroy; override;
   end;
 
 implementation
@@ -62,8 +61,6 @@ end;
 
 function TQuery.Query(const pComandoSQL: string): TDataSet;
 begin
-  Result := nil;
-
   FQuery.Close();
   FQuery.SQL.Clear();
   FQuery.SQL.Add(pComandoSQL);

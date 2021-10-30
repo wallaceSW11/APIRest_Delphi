@@ -16,6 +16,16 @@ type
     procedure Routes();
   end;
 
+  IControllerProduto = interface
+    ['{4A2017FD-E6DF-47CE-96B1-330233B9D45E}']
+    procedure ListarProdutoPorId(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    procedure ListarProdutos(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    procedure CriarProduto(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    procedure AtualizarProduto(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    procedure ExcluirProduto(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    procedure Routes();
+  end;
+
 implementation
 
 end.

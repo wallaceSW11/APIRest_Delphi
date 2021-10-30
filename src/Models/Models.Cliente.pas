@@ -15,8 +15,8 @@ type
     property Nome: string read FNome write FNome;
     property DataNascimento: TDateTime read FDataNascimento write FDataNascimento;
     property Documento: string read FDocumento write FDocumento;
-  constructor Create(); overload;
-  constructor Create(const pNome: string; const pDataNascimento: TDateTime; const pDocumento: string; const pId: string = ''); overload;
+    constructor Create(); overload;
+    constructor Create(const pNome: string; const pDataNascimento: TDateTime; const pDocumento: string; const pId: string = ''); overload;
 
   end;
 

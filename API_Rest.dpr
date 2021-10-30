@@ -20,10 +20,13 @@ uses
   Contexto.Conexao.Interfaces in 'src\Contexto\Contexto.Conexao.Interfaces.pas',
   Contexto.Query in 'src\Contexto\Contexto.Query.pas',
   Repositories.Interfaces in 'src\Repositories\Repositories.Interfaces.pas',
-  Controllers.Interfaces in 'src\Controllers\Controllers.Interfaces.pas';
+  Controllers.Interfaces in 'src\Controllers\Controllers.Interfaces.pas',
+  Repositories.Produto in 'src\Repositories\Repositories.Produto.pas',
+  Controllers.Produto in 'src\Controllers\Controllers.Produto.pas';
 
 var
   FControllerCliente: IControllerCliente;
+  FControllerProduto: IControllerProduto;
 begin
   ReportMemoryLeaksOnShutdown := True;
   //IsConsole:= False;
@@ -31,5 +34,7 @@ begin
   THorse.Use(Jhonson());
   FControllerCliente := TControllerCliente.NovaInstancia();
   FControllerCliente.Routes();
+  FControllerProduto := TControllerProduto.NovaInstancia();
+  FControllerProduto.Routes();
   THorse.Listen(9000);
 end.
