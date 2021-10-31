@@ -7,12 +7,13 @@ API de estudos criada com Horse (https://github.com/HashLoad/horse) com os méto
 * Put
 * Delete
 
-Documentação em: http://localhost:9000/swagger/doc/html#/
-Utilizando o GBSwagger (https://github.com/gabrielbaltazar/gbswagger)
+Documentação em: http://localhost:9000/swagger/doc/html#/ <br>
+Utilizando o GBSwagger (https://github.com/gabrielbaltazar/gbswagger) <br>
 
-Orientado a interfaces
-POO
+Orientado a interfaces <br>
+POO <br><br>
 
+<span>
 Estrutura base:
 SRC
   Models
@@ -22,3 +23,7 @@ SRC
   Helper
   
 CRUD em SQL Server
+</span>
+
+<br>
+Utilizei o BOSS como gerenciador de pacotes.
