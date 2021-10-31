@@ -17,7 +17,6 @@ type
     class function NovaInstancia(): IConexao;
     destructor Destroy; override;
     function Conexao(): TADOConnection;
-
   end;
 
 implementation
@@ -27,15 +26,15 @@ implementation
 function TConexao.Conexao: TADOConnection;
 begin
   FConnection.ConnectionString :=
-  'Provider=MSOLEDBSQL.1;Persist Security Info=False;'+
-  'Data Source=PCWallzin\sqlexpress; Initial Catalog=apirest; User ID=sa; Password=senhas; '+
-  'Initial File Name="";Server SPN="";Authentication="";Access Token=""';
+    'Provider=MSOLEDBSQL.1;Persist Security Info=False;'+
+    'Data Source=PCWallzin\sqlexpress; Initial Catalog=apirest; User ID=sa; Password=senhas; '+
+    'Initial File Name="";Server SPN="";Authentication="";Access Token=""';
 
   try
     FConnection.Connected := True;
   except
     on E: Exception do
-    Writeln('erro ao conectar : ' + e.Message);
+      Writeln('erro ao conectar : ' + e.Message);
   end;
 
   Result := FConnection;

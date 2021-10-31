@@ -191,7 +191,7 @@ begin
       .Tag('Itens vendidos')
       .DELETE('Excluir itens vendidos', 'Excluir o cadastro dos itens vendidos')
         .AddResponse(204, 'No Content')
-          .Schema(TItens vendidos)
+          .Schema(TItensVendidos)
           .IsArray(False)
         .&End
         .AddResponse(400, 'Bad Request').&End
@@ -202,7 +202,7 @@ begin
       .Tag('Itens vendidos')
       .GET('Obter itens vendidoss', 'Listar todos os itens vendidos')
         .AddResponse(200, 'successful operation')
-          .Schema(TItens vendidos)
+          .Schema(TItensVendidos)
           .IsArray(True)
         .&End
         .AddResponse(400, 'Bad Request').&End
@@ -211,10 +211,10 @@ begin
       .Tag('Itens vendidos')
       .POST('Cadastrar itens vendidos', 'Cadastrar os itens vendidos')
         .AddParamBody('Dados do itens vendidos')
-          .Schema(TItens vendidos)
+          .Schema(TItensVendidos)
         .&End
         .AddResponse(202, 'Created')
-          .Schema(TItens vendidos)
+          .Schema(TItensVendidos)
           .IsArray(True)
         .&End
         .AddResponse(400, 'Bad Request').&End

@@ -20,7 +20,6 @@ type
   private
     FQuery: IQuery;
     FVenda: TVenda;
-    FProduto: TProduto;
     FCliente: TCliente;
     FVendas: TObjectList<TVenda>;
     FDataSet: TDataSet;

@@ -6,7 +6,9 @@
 	"mainsrc": "src",
 	"projects": [],
 	"dependencies": {
+		"github.com/hashload/handle-exception": "^0.1.4",
 		"github.com/hashload/horse": "^v2.0.14",
-		"github.com/hashload/jhonson": "^1.1.2"
+		"github.com/hashload/jhonson": "^1.1.2",
+		"https://github.com/gabrielbaltazar/gbswagger": "^2.1.4"
 	}
 }

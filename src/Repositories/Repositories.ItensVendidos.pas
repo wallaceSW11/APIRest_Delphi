@@ -24,9 +24,6 @@ type
     FItensVendidos: TItensVendidos;
     FItensVendidoss: TObjectList<TItensVendidos>;
     FDataSet: TDataSet;
-    FProduto: TProduto;
-    FCliente: TCliente;
-    FVenda: TVenda;
     constructor Create();
     procedure PreencherItensVendidos(pItensVendidos: TItensVendidos = nil);
   public

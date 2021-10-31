@@ -5,6 +5,8 @@ interface
 uses
   System.SysUtils,
   Models.Venda,
+  Models.Cliente,
+  Models.Produto,
   System.Generics.Collections,
   Data.DB,
   Data.Win.ADODB,
@@ -18,6 +20,8 @@ type
   private
     FQuery: IQuery;
     FVenda: TVenda;
+    FProduto: TProduto;
+    FCliente: TCliente;
     FVendas: TObjectList<TVenda>;
     FDataSet: TDataSet;
     constructor Create();
@@ -38,7 +42,7 @@ implementation
 
 function TRepositoryVenda.AtualizarVenda(const pIdentificadorVenda: string; const pVenda: TVenda): TVenda;
 const
-  UPDATE_VENDA = 'Update Venda Set Data=''%s'', Cliente=''%s'' Where id=''%s''';
+  UPDATE_VENDA = 'Update Venda Set DataVenda=''%s'', Cliente=''%s'' Where id=''%s''';
 begin
   FQuery.Exec(Format(UPDATE_VENDA, [
     DateToStr(pVenda.DataVenda), pVenda.Cliente, pIdentificadorVenda]));
@@ -64,14 +68,14 @@ const
                    'Insert Into'
     + sLineBreak + '  Venda ('
     + sLineBreak + '  Id,'
-    + sLineBreak + '  Data,'
+    + sLineBreak + '  DataVenda,'
     + sLineBreak + '  Cliente)'
     + sLineBreak + 'Values ('
     + sLineBreak + '  ''%s'','
     + sLineBreak + '  ''%s'','
     + sLineBreak + '  ''%s'')';
 begin
-  FQuery.Exec(Format(INSERIR_Venda, [pVenda.Id, DateToStr(pVenda.DataVenda), pVenda.Cliente]));
+  FQuery.Exec(Format(INSERIR_Venda, [pVenda.Id, DateToStr(pVenda.DataVenda), pVenda.Cliente.Id]));
   Result := pVenda;
 end;
 
@@ -94,30 +98,35 @@ end;
 
 function TRepositoryVenda.ObterVendaPorIdentificador(const pIdentificadorVenda: string): TVenda;
 const
-  SELECT_Venda_IDENTIFICADOR = 'Select Id, Data, Cliente From Venda Where Id=''%s''';
+  SELECT_Venda_IDENTIFICADOR = 'Select Id, DataVenda, Cliente From Venda Where Id=''%s''';
+  SELECT_CLIENTE = 'Select Nome From Cliente Where id=''%''';
 begin
   FDataSet := FQuery.Query(Format(SELECT_Venda_IDENTIFICADOR, [pIdentificadorVenda]));
 
   if (FDataSet.RecordCount = 0) then
     Exit(nil);
 
+  FCliente := TCliente.Create('eu', StrToDate('25/05/2005'), '12365478977');
+
   FVenda := TVenda.Create(
-    FDataSet.FieldByName('Nome').AsString,
-    FDataSet.FieldByName('Valor').AsFloat,
+    FDataSet.FieldByName('DataVenda').AsDateTime,
+    FCliente,
     FDataSet.FieldByName('id').AsString);
   Result := FVenda;
 end;
 
 function TRepositoryVenda.ObterVendas(): TObjectList<TVenda>;
 const
-  SELECT_Venda_IDENTIFICADOR = 'Select Id, Nome, Valor From Venda';
+  SELECT_VENDA_IDENTIFICADOR = 'Select Id, DataVenda, Cliente From Venda';
 var
   lVenda: TVenda;
 begin
-  FDataSet := FQuery.Query(SELECT_Venda_IDENTIFICADOR);
+  FDataSet := FQuery.Query(SELECT_VENDA_IDENTIFICADOR);
 
   if (FDataSet.RecordCount = 0) then
     Exit(nil);
+
+  FCliente := TCliente.Create('eu', StrToDate('25/05/2005'), '12365478977');
 
   FVendas.Clear();
   FDataSet.First();
@@ -125,8 +134,8 @@ begin
   while (not FDataSet.Eof) do
   begin
     lVenda := TVenda.Create(
-      FDataSet.FieldByName('Nome').AsString,
-      FDataSet.FieldByName('Valor').AsFloat,
+      FDataSet.FieldByName('DataVenda').AsDateTime,
+      FCliente,
       FDataSet.FieldByName('id').AsString);
 
     FVendas.Add(lVenda);

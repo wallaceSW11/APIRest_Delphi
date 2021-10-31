@@ -20,15 +20,14 @@ type
     FCliente: TCliente;
     FClientes: TObjectList<TCliente>;
     FDataSet: TDataSet;
-    constructor Create( );
-
-    procedure PreencherClienteLocal(const pId: string; pNome: string; const pDataNascimento: TDateTime; const pDocumento: string);
+    constructor Create();
   public
     function ObterClientes(): TObjectList<TCliente>;
     function ObterClientePorIdentificador(const pIdentificadorCliente: string): TCliente;
     function CriarCliente(const pCliente: TCliente): TCliente;
     function AtualizarCliente(const pIdentificadorCliente: string; const pCliente: TCliente): TCliente;
-    function ExcluirCliente(const pIdentificadorCliente: string): Boolean;
+    function ClienteExiste(const pIdentificadorCliente: string): Boolean;
+    procedure ExcluirCliente(const pIdentificadorCliente: string);
     class function NovaInstancia(): IRepositoryCliente;
     destructor Destroy(); override;
   end;
@@ -41,18 +40,23 @@ function TRepositoryCliente.AtualizarCliente(const pIdentificadorCliente: string
 const
   UPDATE_CLIENTE = 'Update Cliente Set Nome=''%s'', DataNascimento=''%s'', Documento=''%s'' Where id=''%s''';
 begin
-  Result := nil;
   FQuery.Exec(Format(UPDATE_CLIENTE, [
     pCliente.Nome, DateToStr(pCliente.DataNascimento), pCliente.Documento, pIdentificadorCliente]));
   Result := pCliente;
 end;
 
+function TRepositoryCliente.ClienteExiste(const pIdentificadorCliente: string): Boolean;
+begin
+  FCliente := ObterClientePorIdentificador(pIdentificadorCliente);
+  Result := Assigned(FCliente);
+end;
+
 constructor TRepositoryCliente.Create();
 begin
+
   FQuery := TQuery.NovaInstancia();
   FCliente := TCliente.Create();
   FClientes := TObjectList<TCliente>.Create(True);
-  FDataSet := TDataSet.Create(nil);
 end;
 
 function TRepositoryCliente.CriarCliente(const pCliente: TCliente): TCliente;
@@ -76,17 +80,14 @@ end;
 
 destructor TRepositoryCliente.Destroy();
 begin
-  FreeAndNil(FCliente);
   inherited;
 end;
 
-function TRepositoryCliente.ExcluirCliente(const pIdentificadorCliente: string): Boolean;
+procedure TRepositoryCliente.ExcluirCliente(const pIdentificadorCliente: string);
 const
   EXCLUIR_CLIENTE = 'Delete From Cliente Where id=''%s''';
 begin
-  Result := False;
   FQuery.Exec(Format(EXCLUIR_CLIENTE, [pIdentificadorCliente]));
-  Result := True;
 end;
 
 class function TRepositoryCliente.NovaInstancia: IRepositoryCliente;
@@ -103,12 +104,11 @@ begin
   if (FDataSet.RecordCount = 0) then
     Exit(nil);
 
-  PreencherClienteLocal(
-    FDataSet.FieldByName('Id').AsString,
+  FCliente := TCliente.Create(
     FDataSet.FieldByName('Nome').AsString,
     FDataSet.FieldByName('DataNascimento').AsDateTime,
-    FDataSet.FieldByName('Documento').AsString);
-
+    FDataSet.FieldByName('Documento').AsString,
+    FDataSet.FieldByName('Id').AsString);
   Result := FCliente;
 end;
 
@@ -123,7 +123,6 @@ begin
   if (FDataSet.RecordCount = 0) then
     Exit(nil);
 
-  //FClientes := TObjectList<TCliente>.Create(True);
   FClientes.Clear();
   FDataSet.First();
 
@@ -136,22 +135,10 @@ begin
       FDataSet.FieldByName('id').AsString);
 
     FClientes.Add(lCliente);
-
-
     FDataSet.Next();
   end;
 
   Result := FClientes;
-end;
-
-procedure TRepositoryCliente.PreencherClienteLocal(const pId: string; pNome: string; const pDataNascimento: TDateTime; const pDocumento: string);
-begin
-  if (not pId.Trim().IsEmpty()) then
-    FCliente.Id := pId;
-
-  FCliente.Nome := pNome;
-  FCliente.DataNascimento := pDataNascimento;
-  FCliente.Documento := pDocumento;
 end;
 
 end.

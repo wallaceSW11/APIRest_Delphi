@@ -10,6 +10,7 @@ uses
   Horse.GBSwagger,
   Rest.JSON,
   System.JSON,
+  Horse.HandleException,
   Models.Cliente in 'src\Models\Models.Cliente.pas',
   Models.Produto in 'src\Models\Models.Produto.pas',
   Models.Venda in 'src\Models\Models.Venda.pas',
@@ -39,8 +40,10 @@ begin
   ReportMemoryLeaksOnShutdown := True;
   //IsConsole:= False;
 
-  THorse.Use(Jhonson());
-  THorse.Use(HorseSwagger);
+  THorse
+    .Use(Jhonson)
+    .Use(HorseSwagger)
+    .Use(HandleException);
 
   FControllerCliente := TControllerCliente.NovaInstancia();
   FControllerProduto := TControllerProduto.NovaInstancia();

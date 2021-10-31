@@ -10,6 +10,9 @@ uses
   System.SysUtils;
 
 type
+  TQueryException = class(Exception)
+  end;
+
   TQuery = class(TInterfacedObject, IQuery)
   private
     FConexao: IConexao;
@@ -50,7 +53,7 @@ begin
     FQuery.ExecSQL();
   except
     on E: Exception do
-      Writeln('Falha ao executar o comando: ' + E.Message);
+      raise TQueryException.Create('Falha ao executar o comando: ' + E.Message);
   end;
 end;
 
@@ -69,7 +72,7 @@ begin
     FQuery.Open();
   except
     on E: Exception do
-      Writeln('Falha ao realizar a consulta: ' + E.Message);
+      raise TQueryException.Create('Falha ao realizar a consulta: ' + E.Message);
   end;
 
   Result := FQuery;
