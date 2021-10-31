@@ -1,0 +1,325 @@
+{
+	"info": {
+		"_postman_id": "1b035967-70c7-45e9-bda2-07d834c2c53d",
+		"name": "APIRest_Delphi_Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post Cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests['CriarCliente'] = responseCode.code === 201\r",
+							"\r",
+							"pm.test('preencher idclientenovo', function () {\r",
+							"   pm.environment.set('idclientenovo',pm.response.json().id );   \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"dataNascimento\": \"1958-02-25T00:00:00.000Z\",\r\n    \"documento\": \"98765432199\",\r\n    \"nome\": \"Novo cliente\"   \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/cliente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Cliente Bad Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests['CriarCliente_BadRequest'] = responseCode.code === 400"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/cliente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Clientes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests['ObterClientes'] = responseCode.code === 200"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/cliente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Cliente by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests['ObterClientePeloId'] = responseCode.code === 200"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/cliente/{{idclientenovo}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"cliente",
+						"{{idclientenovo}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Cliente by id NotFound",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests['ObterCliente_DeveRetornarNotFound'] = responseCode.code === 404"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/cliente/09934FBA-B190-4F8F-9E57-7E1178CB866",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"cliente",
+						"09934FBA-B190-4F8F-9E57-7E1178CB866"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests['AtualizarCliente'] = responseCode.code === 200"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"dataNascimento\": \"1958-02-25T00:00:00.000Z\",\r\n    \"documento\": \"98765432199\",\r\n    \"nome\": \"Novo cliente Editado\",\r\n     \"id\": \"6DB30B31-8F92-4C71-810B-52CE6847F32C\"   \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/cliente/{{idclientenovo}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"cliente",
+						"{{idclientenovo}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Cliente Not Found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests['AtualizarCliente_NotFound'] = responseCode.code === 404"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"dataNascimento\": \"1958-02-25T00:00:00.000Z\",\r\n    \"documento\": \"98765432199\",\r\n    \"nome\": \"Novo cliente Editado\",\r\n     \"id\": \"6DB30B31-8F92-4C71-810B-52CE6847F32\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/cliente/6DB30B31-8F92-4C71-810B-52CE6847F32",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"cliente",
+						"6DB30B31-8F92-4C71-810B-52CE6847F32"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests['ExcluirCliente'] = responseCode.code === 204"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/cliente/{{idclientenovo}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"cliente",
+						"{{idclientenovo}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Cliente Not Found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests['ExcluirCliente_NotFound'] = responseCode.code === 404"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/cliente/{{idclientenovo}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"cliente",
+						"{{idclientenovo}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
