@@ -8,6 +8,7 @@ uses
   System.SysUtils,
   Horse,
   Horse.Commons,
+  Horse.GBSwagger,
   System.JSON,
   REST.Json,
   Repositories.ItensVendidos,
@@ -166,6 +167,60 @@ begin
   THorse.Post('/itensvendidos/', CriarItensVendidos);
   THorse.PUT('/itensvendidos/:id', AtualizarItensVendidos);
   THorse.Delete('itensvendidos/:id', ExcluirItensVendidos);
+
+  Swagger
+    .Path('itensvendidos/{id}')
+      .Tag('Itens vendidos')
+      .GET('Obter itens vendidos pelo identificador', 'Visualizar os dados dos itens vendidos')
+        .AddResponse(200, 'successful operation')
+          .Schema(TItensVendidos)
+          .IsArray(False)
+        .&End
+        .AddResponse(400, 'Bad Request').&End
+        .AddResponse(404, 'Not Found').&End
+      .&End
+      .Tag('Itens vendidos')
+      .PUT('Atualizar itens vendidos', 'Atualizar o cadastro dos itens vendidos')
+        .AddResponse(200, 'successful operation')
+          .Schema(TItensVendidos)
+          .IsArray(False)
+        .&End
+        .AddResponse(400, 'Bad Request').&End
+        .AddResponse(404, 'Not Found').&End
+      .&End
+      .Tag('Itens vendidos')
+      .DELETE('Excluir itens vendidos', 'Excluir o cadastro dos itens vendidos')
+        .AddResponse(204, 'No Content')
+          .Schema(TItens vendidos)
+          .IsArray(False)
+        .&End
+        .AddResponse(400, 'Bad Request').&End
+        .AddResponse(404, 'Not Found').&End
+      .&End
+    .&End
+    .Path('itens vendidos')
+      .Tag('Itens vendidos')
+      .GET('Obter itens vendidoss', 'Listar todos os itens vendidos')
+        .AddResponse(200, 'successful operation')
+          .Schema(TItens vendidos)
+          .IsArray(True)
+        .&End
+        .AddResponse(400, 'Bad Request').&End
+        .AddResponse(404, 'Not Found').&End
+        .&End
+      .Tag('Itens vendidos')
+      .POST('Cadastrar itens vendidos', 'Cadastrar os itens vendidos')
+        .AddParamBody('Dados do itens vendidos')
+          .Schema(TItens vendidos)
+        .&End
+        .AddResponse(202, 'Created')
+          .Schema(TItens vendidos)
+          .IsArray(True)
+        .&End
+        .AddResponse(400, 'Bad Request').&End
+        .AddResponse(404, 'Not Found').&End
+      .&End
+    .&End
 end;
 
 end.

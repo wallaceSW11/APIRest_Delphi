@@ -8,6 +8,7 @@ uses
   System.SysUtils,
   Horse,
   Horse.Commons,
+  Horse.GBSwagger,
   System.JSON,
   REST.Json,
   Repositories.Produto,
@@ -158,6 +159,60 @@ begin
   THorse.Post('/produto/', CriarProduto);
   THorse.PUT('/produto/:id', AtualizarProduto);
   THorse.Delete('produto/:id', ExcluirProduto);
+
+  Swagger
+    .Path('produto/{id}')
+      .Tag('Produto')
+      .GET('Obter produto pelo identificador', 'Visualizar os dados do produto')
+        .AddResponse(200, 'successful operation')
+          .Schema(TProduto)
+          .IsArray(False)
+        .&End
+        .AddResponse(400, 'Bad Request').&End
+        .AddResponse(404, 'Not Found').&End
+      .&End
+      .Tag('Produto')
+      .PUT('Atualizar produto', 'Atualizar o cadastro do produto')
+        .AddResponse(200, 'successful operation')
+          .Schema(TProduto)
+          .IsArray(False)
+        .&End
+        .AddResponse(400, 'Bad Request').&End
+        .AddResponse(404, 'Not Found').&End
+      .&End
+      .Tag('Produto')
+      .DELETE('Excluir produto', 'Excluir o cadastro do produtos')
+        .AddResponse(204, 'No Content')
+          .Schema(TProduto)
+          .IsArray(False)
+        .&End
+        .AddResponse(400, 'Bad Request').&End
+        .AddResponse(404, 'Not Found').&End
+      .&End
+    .&End
+    .Path('produto')
+      .Tag('Produto')
+      .GET('Obter produtos', 'Listar todos os produtos')
+        .AddResponse(200, 'successful operation')
+          .Schema(TProduto)
+          .IsArray(True)
+        .&End
+        .AddResponse(400, 'Bad Request').&End
+        .AddResponse(404, 'Not Found').&End
+        .&End
+      .Tag('Produto')
+      .POST('Cadastrar produto', 'Cadastrar o produto')
+        .AddParamBody('Dados do produto')
+          .Schema(TProduto)
+        .&End
+        .AddResponse(202, 'Created')
+          .Schema(TProduto)
+          .IsArray(True)
+        .&End
+        .AddResponse(400, 'Bad Request').&End
+        .AddResponse(404, 'Not Found').&End
+      .&End
+    .&End
 end;
 
 end.

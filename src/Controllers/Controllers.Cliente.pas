@@ -8,6 +8,7 @@ uses
   System.SysUtils,
   Horse,
   Horse.Commons,
+  Horse.GBSwagger,
   System.JSON,
   REST.Json,
   Repositories.Cliente,
@@ -158,6 +159,60 @@ begin
   THorse.Post('/cliente/', CriarCliente);
   THorse.PUT('/cliente/:id', AtualizarCliente);
   THorse.Delete('cliente/:id', ExcluirCliente);
+
+  Swagger
+    .Path('cliente/{id}')
+      .Tag('Cliente')
+      .GET('Obter cliente pelo identificador', 'Visualizar os dados do cliente')
+        .AddResponse(200, 'successful operation')
+          .Schema(TCliente)
+          .IsArray(False)
+        .&End
+        .AddResponse(400, 'Bad Request').&End
+        .AddResponse(404, 'Not Found').&End
+      .&End
+      .Tag('Cliente')
+      .PUT('Atualizar cliente', 'Atualizar o cadastro do cliente')
+        .AddResponse(200, 'successful operation')
+          .Schema(TCliente)
+          .IsArray(False)
+        .&End
+        .AddResponse(400, 'Bad Request').&End
+        .AddResponse(404, 'Not Found').&End
+      .&End
+      .Tag('Cliente')
+      .DELETE('Excluir cliente', 'Excluir o cadastro do clientes')
+        .AddResponse(204, 'No Content')
+          .Schema(TCliente)
+          .IsArray(False)
+        .&End
+        .AddResponse(400, 'Bad Request').&End
+        .AddResponse(404, 'Not Found').&End
+      .&End
+    .&End
+    .Path('cliente')
+      .Tag('Cliente')
+      .GET('Obter clientes', 'Listar todos os clientes')
+        .AddResponse(200, 'successful operation')
+          .Schema(TCliente)
+          .IsArray(True)
+        .&End
+        .AddResponse(400, 'Bad Request').&End
+        .AddResponse(404, 'Not Found').&End
+        .&End
+      .Tag('Cliente')
+      .POST('Cadastrar cliente', 'Cadastrar p cliente')
+        .AddParamBody('Dados do cliente')
+          .Schema(TCliente)
+        .&End
+        .AddResponse(202, 'Created')
+          .Schema(TCliente)
+          .IsArray(True)
+        .&End
+        .AddResponse(400, 'Bad Request').&End
+        .AddResponse(404, 'Not Found').&End
+      .&End
+    .&End
 end;
 
 end.

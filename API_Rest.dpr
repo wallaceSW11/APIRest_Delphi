@@ -7,6 +7,7 @@ program API_Rest;
 uses
   Horse,
   Horse.Jhonson,
+  Horse.GBSwagger,
   Rest.JSON,
   System.JSON,
   Models.Cliente in 'src\Models\Models.Cliente.pas',
@@ -39,6 +40,8 @@ begin
   //IsConsole:= False;
 
   THorse.Use(Jhonson());
+  THorse.Use(HorseSwagger);
+
   FControllerCliente := TControllerCliente.NovaInstancia();
   FControllerProduto := TControllerProduto.NovaInstancia();
   FControllerVenda := TControllerVenda.NovaInstancia();

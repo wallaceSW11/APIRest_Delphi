@@ -8,6 +8,7 @@ uses
   System.SysUtils,
   Horse,
   Horse.Commons,
+  Horse.GBSwagger,
   System.JSON,
   REST.Json,
   Repositories.Venda,
@@ -164,6 +165,60 @@ begin
   THorse.Post('/venda/', CriarVenda);
   THorse.PUT('/venda/:id', AtualizarVenda);
   THorse.Delete('venda/:id', ExcluirVenda);
+
+  Swagger
+    .Path('venda/{id}')
+      .Tag('Venda')
+      .GET('Obter venda pelo identificador', 'Visualizar os dados da venda')
+        .AddResponse(200, 'successful operation')
+          .Schema(TVenda)
+          .IsArray(False)
+        .&End
+        .AddResponse(400, 'Bad Request').&End
+        .AddResponse(404, 'Not Found').&End
+      .&End
+      .Tag('Venda')
+      .PUT('Atualizar venda', 'Atualizar o cadastro da venda')
+        .AddResponse(200, 'successful operation')
+          .Schema(TVenda)
+          .IsArray(False)
+        .&End
+        .AddResponse(400, 'Bad Request').&End
+        .AddResponse(404, 'Not Found').&End
+      .&End
+      .Tag('Venda')
+      .DELETE('Excluir venda', 'Excluir o cadastro da vendas')
+        .AddResponse(204, 'No Content')
+          .Schema(TVenda)
+          .IsArray(False)
+        .&End
+        .AddResponse(400, 'Bad Request').&End
+        .AddResponse(404, 'Not Found').&End
+      .&End
+    .&End
+    .Path('venda')
+      .Tag('Venda')
+      .GET('Obter vendas', 'Listar todas as vendas')
+        .AddResponse(200, 'successful operation')
+          .Schema(TVenda)
+          .IsArray(True)
+        .&End
+        .AddResponse(400, 'Bad Request').&End
+        .AddResponse(404, 'Not Found').&End
+        .&End
+      .Tag('Venda')
+      .POST('Cadastrar venda', 'Cadastrar a venda')
+        .AddParamBody('Dados do venda')
+          .Schema(TVenda)
+        .&End
+        .AddResponse(202, 'Created')
+          .Schema(TVenda)
+          .IsArray(True)
+        .&End
+        .AddResponse(400, 'Bad Request').&End
+        .AddResponse(404, 'Not Found').&End
+      .&End
+    .&End
 end;
 
 end.
