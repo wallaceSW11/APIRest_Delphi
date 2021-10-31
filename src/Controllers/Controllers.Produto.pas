@@ -76,8 +76,16 @@ end;
 procedure TControllerProduto.CriarProduto(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 const
   FALHA_AO_CRIAR_Produto = 'Falha ao criar o Produto.';
+  NOME_PRODUTO_NAO_INFORMADO = 'O nome do produto não foi informado';
 begin
   FProduto := TJson.JsonToObject<TProduto>(Req.Body<TJSONObject>);
+
+  if (FProduto.Nome.Trim().IsEmpty()) then
+  begin
+    Res.Send(NOME_PRODUTO_NAO_INFORMADO).Status(THTTPStatus.BadRequest);
+    Exit();
+  end;
+
   FProduto := FRepositorioProduto.CriarProduto(FProduto);
 
   if (Assigned(FProduto)) then
@@ -86,7 +94,7 @@ begin
     Res.Send(FALHA_AO_CRIAR_Produto).Status(THTTPStatus.BadRequest);
 end;
 
-destructor TControllerProduto.Destroy;
+destructor TControllerProduto.Destroy();
 begin
   FProduto.Free();
   FProdutos.Free();

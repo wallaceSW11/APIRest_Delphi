@@ -24,22 +24,29 @@ uses
   Repositories.Produto in 'src\Repositories\Repositories.Produto.pas',
   Controllers.Produto in 'src\Controllers\Controllers.Produto.pas',
   Repositories.Venda in 'src\Repositories\Repositories.Venda.pas',
-  Controllers.Venda in 'src\Controllers\Controllers.Venda.pas';
+  Controllers.Venda in 'src\Controllers\Controllers.Venda.pas',
+  Repositories.ItensVendidos in 'src\Repositories\Repositories.ItensVendidos.pas',
+  Controllers.ItensVendidos in 'src\Controllers\Controllers.ItensVendidos.pas';
 
 var
   FControllerCliente: IControllerCliente;
   FControllerProduto: IControllerProduto;
   FControllerVenda: IControllerVenda;
+  FControllerItensVendidos: IControllerItensVendidos;
 begin
   ReportMemoryLeaksOnShutdown := True;
   //IsConsole:= False;
 
   THorse.Use(Jhonson());
   FControllerCliente := TControllerCliente.NovaInstancia();
-  FControllerCliente.Routes();
   FControllerProduto := TControllerProduto.NovaInstancia();
-  FControllerProduto.Routes();
   FControllerVenda := TControllerVenda.NovaInstancia();
+  FControllerItensVendidos := TControllerItensVendidos.NovaInstancia();
+
+  FControllerCliente.Routes();
+  FControllerProduto.Routes();
   FControllerVenda.Routes();
+  FControllerItensVendidos.Routes();
+
   THorse.Listen(9000);
 end.

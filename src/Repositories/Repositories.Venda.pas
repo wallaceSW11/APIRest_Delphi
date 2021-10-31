@@ -42,7 +42,7 @@ implementation
 
 function TRepositoryVenda.AtualizarVenda(const pIdentificadorVenda: string; const pVenda: TVenda): TVenda;
 const
-  UPDATE_VENDA = 'Update Venda Set Data=''%s'', Cliente=''%s'' Where id=''%s''';
+  UPDATE_VENDA = 'Update Venda Set DataVenda=''%s'', Cliente=''%s'' Where id=''%s''';
 begin
   FQuery.Exec(Format(UPDATE_VENDA, [
     DateToStr(pVenda.DataVenda), pVenda.Cliente, pIdentificadorVenda]));
@@ -68,14 +68,14 @@ const
                    'Insert Into'
     + sLineBreak + '  Venda ('
     + sLineBreak + '  Id,'
-    + sLineBreak + '  Data,'
+    + sLineBreak + '  DataVenda,'
     + sLineBreak + '  Cliente)'
     + sLineBreak + 'Values ('
     + sLineBreak + '  ''%s'','
     + sLineBreak + '  ''%s'','
     + sLineBreak + '  ''%s'')';
 begin
-  FQuery.Exec(Format(INSERIR_Venda, [pVenda.Id, DateToStr(pVenda.DataVenda), pVenda.Cliente.Nome]));
+  FQuery.Exec(Format(INSERIR_Venda, [pVenda.Id, DateToStr(pVenda.DataVenda), pVenda.Cliente.Id]));
   Result := pVenda;
 end;
 
@@ -98,7 +98,7 @@ end;
 
 function TRepositoryVenda.ObterVendaPorIdentificador(const pIdentificadorVenda: string): TVenda;
 const
-  SELECT_Venda_IDENTIFICADOR = 'Select Id, Data, Cliente From Venda Where Id=''%s''';
+  SELECT_Venda_IDENTIFICADOR = 'Select Id, DataVenda, Cliente From Venda Where Id=''%s''';
   SELECT_CLIENTE = 'Select Nome From Cliente Where id=''%''';
 begin
   FDataSet := FQuery.Query(Format(SELECT_Venda_IDENTIFICADOR, [pIdentificadorVenda]));
@@ -109,7 +109,7 @@ begin
   FCliente := TCliente.Create('eu', StrToDate('25/05/2005'), '12365478977');
 
   FVenda := TVenda.Create(
-    FDataSet.FieldByName('Data').AsDateTime,
+    FDataSet.FieldByName('DataVenda').AsDateTime,
     FCliente,
     FDataSet.FieldByName('id').AsString);
   Result := FVenda;
@@ -117,7 +117,7 @@ end;
 
 function TRepositoryVenda.ObterVendas(): TObjectList<TVenda>;
 const
-  SELECT_VENDA_IDENTIFICADOR = 'Select Id, Data, Cliente From Venda';
+  SELECT_VENDA_IDENTIFICADOR = 'Select Id, DataVenda, Cliente From Venda';
 var
   lVenda: TVenda;
 begin
@@ -134,7 +134,7 @@ begin
   while (not FDataSet.Eof) do
   begin
     lVenda := TVenda.Create(
-      FDataSet.FieldByName('Data').AsDateTime,
+      FDataSet.FieldByName('DataVenda').AsDateTime,
       FCliente,
       FDataSet.FieldByName('id').AsString);
 

@@ -12,6 +12,7 @@ uses
   REST.Json,
   Repositories.Venda,
   Repositories.Interfaces,
+  Repositories.Cliente,
   Controllers.Interfaces;
 
 type
@@ -20,6 +21,7 @@ type
     FRepositorioVenda: IRepositoryVenda;
     FVenda: TVenda;
     FVendas: TObjectList<TVenda>;
+    FRepositorioCliente: IRepositoryCliente;
     constructor Create();
     function VendaExiste(Res: THorseResponse; const pIdentificadorVenda: string): Boolean;
   public
@@ -69,6 +71,7 @@ end;
 constructor TControllerVenda.Create();
 begin
   FRepositorioVenda := TRepositoryVenda.NovaInstancia();
+  FRepositorioCliente := TRepositoryCliente.NovaInstancia();
   FVenda := TVenda.Create();
   FVendas := TObjectList<TVenda>.Create();
 end;
@@ -76,14 +79,25 @@ end;
 procedure TControllerVenda.CriarVenda(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 const
   FALHA_AO_CRIAR_Venda = 'Falha ao criar a venda.';
+  MODELO_VENDA_INVALIDO = 'Conteúdo da venda inválido.';
+  CLIENTE_DA_VENDA_NAO_LOCALIZADO = 'O cliente informando na venda não foi localizado.';
 begin
   FVenda := TJson.JsonToObject<TVenda>(Req.Body<TJSONObject>);
-  FVenda := FRepositorioVenda.CriarVenda(FVenda);
 
-  if (Assigned(FVenda)) then
-    Res.Send<TJsonObject>(TJson.ObjectToJsonObject(FVenda)).Status(THTTPStatus.Created)
-  else
-    Res.Send(FALHA_AO_CRIAR_Venda).Status(THTTPStatus.BadRequest);
+  if (FVenda.Cliente = nil) then
+  begin
+    Res.Send(MODELO_VENDA_INVALIDO).Status(THTTPStatus.BadRequest);
+    Exit();
+  end;
+
+  if (not FRepositorioCliente.ClienteExiste(FVenda.Cliente.Id)) then
+  begin
+    Res.Send(CLIENTE_DA_VENDA_NAO_LOCALIZADO).Status(THTTPStatus.NotFound);
+    Exit();
+  end;
+
+  FVenda := FRepositorioVenda.CriarVenda(FVenda);
+  Res.Send<TJsonObject>(TJson.ObjectToJsonObject(FVenda)).Status(THTTPStatus.Created)
 end;
 
 destructor TControllerVenda.Destroy;
@@ -113,7 +127,7 @@ end;
 
 procedure TControllerVenda.ListarVendas(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 const
-  VendaS_NAO_ENCONTRADOS = 'Nenhum venda foi encontrada.';
+  VENDAS_NAO_ENCONTRADAS = 'Nenhum venda foi encontrada.';
 var
   lVenda: TVenda;
   lJsonArray: TJsonarray;
@@ -123,7 +137,7 @@ begin
 
   if (not (Assigned(FVendas))) then
   begin
-    Res.Send(VendaS_NAO_ENCONTRADOS).Status(THTTPStatus.NotFound);
+    Res.Send(VENDAS_NAO_ENCONTRADAS).Status(THTTPStatus.NotFound);
     Exit();
   end;
 

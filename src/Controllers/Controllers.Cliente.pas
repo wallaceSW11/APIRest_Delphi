@@ -21,8 +21,8 @@ type
     FCliente: TCliente;
     FClientes: TObjectList<TCliente>;
     constructor Create();
-    function ClienteExiste(Res: THorseResponse; const pIdentificadorCliente: string): Boolean;
   public
+    function ClienteExiste(Res: THorseResponse; const pIdentificadorCliente: string): Boolean;
     procedure ListarClientePorId(Req: THorseRequest; Res: THorseResponse; Next: TProc);
     procedure ListarClientes(Req: THorseRequest; Res: THorseResponse; Next: TProc);
     procedure CriarCliente(Req: THorseRequest; Res: THorseResponse; Next: TProc);
@@ -76,8 +76,16 @@ end;
 procedure TControllerCliente.CriarCliente(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 const
   FALHA_AO_CRIAR_CLIENTE = 'Falha ao criar o cliente.';
+  NOME_CLIENTE_NAO_INFORMADO = 'O nome do cliente não foi informado.';
 begin
   FCliente := TJson.JsonToObject<TCliente>(Req.Body<TJSONObject>);
+
+  if (FCliente.Nome.Trim().IsEmpty()) then
+  begin
+    Res.Send(NOME_CLIENTE_NAO_INFORMADO).Status(THTTPStatus.BadRequest);
+    Exit();
+  end;
+
   FCliente := FRepositorioCliente.CriarCliente(FCliente);
 
   if (Assigned(FCliente)) then

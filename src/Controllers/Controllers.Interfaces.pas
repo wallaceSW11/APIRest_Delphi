@@ -36,6 +36,16 @@ type
     procedure Routes();
   end;
 
+  IControllerItensVendidos = interface
+    ['{4A2017FD-E6DF-47CE-96B1-330233B9D45E}']
+    procedure ListarItensVendidosPorId(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    procedure ListarItensVendidoss(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    procedure CriarItensVendidos(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    procedure AtualizarItensVendidos(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    procedure ExcluirItensVendidos(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    procedure Routes();
+  end;
+
 implementation
 
 end.

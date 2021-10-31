@@ -6,6 +6,7 @@ uses
   Models.Cliente,
   Models.Produto,
   Models.Venda,
+  Models.ItensVendidos,
   System.Generics.Collections;
 
 type
@@ -34,6 +35,15 @@ type
     function AtualizarVenda(const pIdentificadorVenda: string; const pVenda: TVenda): TVenda;
     function VendaExiste(const pIdentificadorVenda: string): Boolean;
     procedure ExcluirVenda(const pIdentificadorVenda: string);
+  end;
+
+  IRepositoryItensVendidos = interface
+    function ObterItensVendidoss(): TObjectList<TItensVendidos>;
+    function ObterItensVendidosPorIdentificador(const pIdentificadorItensVendidos: string): TItensVendidos;
+    function CriarItensVendidos(const pItensVendidos: TItensVendidos): TItensVendidos;
+    function AtualizarItensVendidos(const pIdentificadorItensVendidos: string; const pItensVendidos: TItensVendidos): TItensVendidos;
+    function ItensVendidosExiste(const pIdentificadorItensVendidos: string): Boolean;
+    procedure ExcluirItensVendidos(const pIdentificadorItensVendidos: string);
   end;
 
 implementation
