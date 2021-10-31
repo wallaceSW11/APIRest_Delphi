@@ -42,6 +42,9 @@
     <Transaction>2021/10/31 11:20:26.995,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Repositories\Repositories.ItensVendidos.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Repositories\Repositories.ItemVenda.pas</Transaction>
     <Transaction>2021/10/31 11:42:04.366,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
     <Transaction>2021/10/31 11:45:48.797,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Controllers\Controllers.ItensVendidos.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/31 15:38:45.432,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/31 15:39:11.747,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Helper\Helper.CurrencyHelper.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/31 15:47:15.235,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Helper\Helper.NumberHelper.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Helper\Helper.CurrencyHelper.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="src"/>
@@ -52,9 +55,11 @@
     <File Path="src\Controllers"/>
     <File Path="src\Controllers\Controllers.Cliente.pas"/>
     <File Path="src\Controllers\Controllers.Interfaces.pas"/>
+    <File Path="src\Controllers\Controllers.ItensVendidos.pas"/>
     <File Path="src\Controllers\Controllers.Produto.pas"/>
     <File Path="src\Controllers\Controllers.Venda.pas"/>
-    <File Path="src\Controllers\Controllers.ItensVendidos.pas"/>
+    <File Path="src\Helper"/>
+    <File Path="src\Helper\Helper.NumberHelper.pas"/>
     <File Path="src\Models"/>
     <File Path="src\Models\Models.CadastroBase.pas"/>
     <File Path="src\Models\Models.Cliente.pas"/>

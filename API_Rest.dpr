@@ -26,7 +26,8 @@ uses
   Repositories.Venda in 'src\Repositories\Repositories.Venda.pas',
   Controllers.Venda in 'src\Controllers\Controllers.Venda.pas',
   Repositories.ItensVendidos in 'src\Repositories\Repositories.ItensVendidos.pas',
-  Controllers.ItensVendidos in 'src\Controllers\Controllers.ItensVendidos.pas';
+  Controllers.ItensVendidos in 'src\Controllers\Controllers.ItensVendidos.pas',
+  Helper.NumberHelper in 'src\Helper\Helper.NumberHelper.pas';
 
 var
   FControllerCliente: IControllerCliente;

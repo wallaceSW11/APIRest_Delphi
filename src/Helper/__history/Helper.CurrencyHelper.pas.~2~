@@ -1,0 +1,22 @@
+unit Helper.CurrencyHelper;
+
+interface
+
+uses
+  System.SysUtils;
+
+type
+  TCurrency_Helper = record helper for Currency
+    function FormatoBancoDeDados(): string;
+  end;
+
+implementation
+
+{ TCurrency_Helper }
+
+function TCurrency_Helper.FormatoBancoDeDados: string;
+begin
+  Result := FloatToStr(Self).Replace('.', EmptyStr).Replace(',', '.');
+end;
+
+end.

@@ -14,7 +14,8 @@ uses
   Contexto.Conexao.Interfaces,
   Repositories.Interfaces,
   Contexto.Query,
-  System.StrUtils;
+  System.StrUtils,
+  Helper.NumberHelper;
 
 type
   TRepositoryItensVendidos = class(TInterfacedObject, IRepositoryItensVendidos)
@@ -48,7 +49,7 @@ const
   UPDATE_ITENSVENDIDOS = 'Update ItensVendidos Set Produto=''%s'', Venda=''%s'', Quantidade=''%s'' Where id=''%s''';
 begin
   FQuery.Exec(Format(UPDATE_ITENSVENDIDOS, [
-    pItensVendidos.Produto.Id, pItensVendidos.Venda.Id, FloatToStr(pItensVendidos.Quantidade).Replace('.', '').Replace(',', '.'), pIdentificadorItensVendidos]));
+    pItensVendidos.Produto.Id, pItensVendidos.Venda.Id, pItensVendidos.Quantidade.FormatoBancoDeDados(), pIdentificadorItensVendidos]));
   Result := pItensVendidos;
 end;
 
@@ -81,7 +82,7 @@ const
     + sLineBreak + '  ''%s'')';
 begin
   FQuery.Exec(Format(INSERIR_ItensVendidos, [
-    pItensVendidos.Id, pItensVendidos.Produto.Id, pItensVendidos.Venda.Id, FloatToStr(pItensVendidos.Quantidade)]));
+    pItensVendidos.Id, pItensVendidos.Produto.Id, pItensVendidos.Venda.Id, pItensVendidos.Quantidade.FormatoBancoDeDados()]));
   Result := pItensVendidos;
 end;
 

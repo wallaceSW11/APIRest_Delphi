@@ -11,7 +11,8 @@ uses
   Contexto.Conexao.Interfaces,
   Repositories.Interfaces,
   Contexto.Query,
-  System.StrUtils;
+  System.StrUtils,
+  Helper.NumberHelper;
 
 type
   TRepositoryProduto = class(TInterfacedObject, IRepositoryProduto)
@@ -41,7 +42,7 @@ const
   UPDATE_Produto = 'Update Produto Set Nome=''%s'', Valor=''%s'' Where id=''%s''';
 begin
   FQuery.Exec(Format(UPDATE_Produto, [
-    pProduto.Nome, FormatFloat('0.00#.##', pProduto.Valor).Replace('.', '').Replace(',', '.'), pIdentificadorProduto]));
+    pProduto.Nome, pProduto.Valor.FormatoBancoDeDados(), pIdentificadorProduto]));
   Result := pProduto;
 end;
 
@@ -71,7 +72,7 @@ const
     + sLineBreak + '  ''%s'','
     + sLineBreak + '  ''%s'')';
 begin
-  FQuery.Exec(Format(INSERIR_PRODUTO, [pProduto.Id, pProduto.Nome, FormatFloat('0.00#.##', pProduto.Valor).Replace('.', '').Replace(',', '.')]));
+  FQuery.Exec(Format(INSERIR_PRODUTO, [pProduto.Id, pProduto.Nome, pProduto.Valor.FormatoBancoDeDados()]));
   Result := pProduto;
 end;
 
