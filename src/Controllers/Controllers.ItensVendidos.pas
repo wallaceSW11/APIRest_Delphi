@@ -143,7 +143,7 @@ var
   lJsonArray: TJsonarray;
   lJsonObject: TJsonObject;
 begin
-  FListaItensVendidos := FRepositorioItensVendidos.ObterItensVendidoss();
+  FListaItensVendidos := FRepositorioItensVendidos.ObterListaItensVendidos();
 
   if (not (Assigned(FListaItensVendidos))) then
   begin

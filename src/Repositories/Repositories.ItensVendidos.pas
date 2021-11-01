@@ -22,12 +22,12 @@ type
   private
     FQuery: IQuery;
     FItensVendidos: TItensVendidos;
-    FItensVendidoss: TObjectList<TItensVendidos>;
+    FListaItensVendidos: TObjectList<TItensVendidos>;
     FDataSet: TDataSet;
     constructor Create();
     procedure PreencherItensVendidos(pItensVendidos: TItensVendidos = nil);
   public
-    function ObterItensVendidoss(): TObjectList<TItensVendidos>;
+    function ObterListaItensVendidos(): TObjectList<TItensVendidos>;
     function ObterItensVendidosPorIdentificador(const pIdentificadorItensVendidos: string): TItensVendidos;
     function CriarItensVendidos(const pItensVendidos: TItensVendidos): TItensVendidos;
     function AtualizarItensVendidos(const pIdentificadorItensVendidos: string; const pItensVendidos: TItensVendidos): TItensVendidos;
@@ -60,7 +60,7 @@ constructor TRepositoryItensVendidos.Create();
 begin
   FQuery := TQuery.NovaInstancia();
   FItensVendidos := TItensVendidos.Create();
-  FItensVendidoss := TObjectList<TItensVendidos>.Create(True);
+  FListaItensVendidos := TObjectList<TItensVendidos>.Create(True);
 end;
 
 function TRepositoryItensVendidos.CriarItensVendidos(const pItensVendidos: TItensVendidos): TItensVendidos;
@@ -170,7 +170,7 @@ begin
 end;
 
 
-function TRepositoryItensVendidos.ObterItensVendidoss(): TObjectList<TItensVendidos>;
+function TRepositoryItensVendidos.ObterListaItensVendidos(): TObjectList<TItensVendidos>;
 const
   SELECT_ITENSVENDIDOS =
                    'Select'
@@ -197,18 +197,18 @@ begin
   if (FDataSet.RecordCount = 0) then
     Exit(nil);
 
-  FItensVendidoss.Clear();
+  FListaItensVendidos.Clear();
   FDataSet.First();
 
   while (not FDataSet.Eof) do
   begin
     lItensVendidos := TItensVendidos.Create();
     PreencherItensVendidos(lItensVendidos);
-    FItensVendidoss.Add(lItensVendidos);
+    FListaItensVendidos.Add(lItensVendidos);
     FDataSet.Next();
   end;
 
-  Result := FItensVendidoss;
+  Result := FListaItensVendidos;
 end;
 
 end.

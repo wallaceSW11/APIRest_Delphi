@@ -12,6 +12,7 @@ uses
   Data.Win.ADODB,
   Contexto.Conexao.Interfaces,
   Repositories.Interfaces,
+  Repositories.Cliente,
   Contexto.Query,
   System.StrUtils;
 
@@ -23,6 +24,7 @@ type
     FCliente: TCliente;
     FVendas: TObjectList<TVenda>;
     FDataSet: TDataSet;
+    FRepositorioCliente: IRepositoryCliente;
     constructor Create();
   public
     function ObterVendas(): TObjectList<TVenda>;
@@ -59,6 +61,7 @@ begin
   FQuery := TQuery.NovaInstancia();
   FVenda := TVenda.Create();
   FVendas := TObjectList<TVenda>.Create(True);
+  FRepositorioCliente := TRepositoryCliente.NovaInstancia();
 end;
 
 function TRepositoryVenda.CriarVenda(const pVenda: TVenda): TVenda;
@@ -105,7 +108,7 @@ begin
   if (FDataSet.RecordCount = 0) then
     Exit(nil);
 
-  FCliente := TCliente.Create('eu', StrToDate('25/05/2005'), '12365478977');
+  FCliente := FRepositorioCliente.ObterClientePorIdentificador(FDataSet.FieldByName('Cliente').AsString);
 
   FVenda := TVenda.Create(
     FDataSet.FieldByName('DataVenda').AsDateTime,
@@ -125,7 +128,7 @@ begin
   if (FDataSet.RecordCount = 0) then
     Exit(nil);
 
-  FCliente := TCliente.Create('eu', StrToDate('25/05/2005'), '12365478977');
+  FCliente := FRepositorioCliente.ObterClientePorIdentificador(FDataSet.FieldByName('Cliente').AsString);
 
   FVendas.Clear();
   FDataSet.First();

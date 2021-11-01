@@ -38,7 +38,7 @@ type
   end;
 
   IRepositoryItensVendidos = interface
-    function ObterItensVendidoss(): TObjectList<TItensVendidos>;
+    function ObterListaItensVendidos(): TObjectList<TItensVendidos>;
     function ObterItensVendidosPorIdentificador(const pIdentificadorItensVendidos: string): TItensVendidos;
     function CriarItensVendidos(const pItensVendidos: TItensVendidos): TItensVendidos;
     function AtualizarItensVendidos(const pIdentificadorItensVendidos: string; const pItensVendidos: TItensVendidos): TItensVendidos;
