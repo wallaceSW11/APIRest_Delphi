@@ -18,7 +18,6 @@ type
     procedure Exec(const pComandoSQL: string);
   end;
 
-
 implementation
 
 end.

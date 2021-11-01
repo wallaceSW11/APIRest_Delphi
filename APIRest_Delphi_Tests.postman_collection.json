@@ -6,320 +6,2061 @@
 	},
 	"item": [
 		{
-			"name": "Post Cliente",
-			"event": [
+			"name": "Cliente",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"tests['CriarCliente'] = responseCode.code === 201\r",
-							"\r",
-							"pm.test('preencher idclientenovo', function () {\r",
-							"   pm.environment.set('idclientenovo',pm.response.json().id );   \r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"dataNascimento\": \"1958-02-25T00:00:00.000Z\",\r\n    \"documento\": \"98765432199\",\r\n    \"nome\": \"Novo cliente\"   \r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "Post Cliente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['CriarCliente'] = responseCode.code === 201\r",
+									"\r",
+									"pm.test('preencher idclientenovo', function () {\r",
+									"   pm.environment.set('idclientenovo',pm.response.json().id );   \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:9000/cliente",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "9000",
-					"path": [
-						"cliente"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Post Cliente Bad Request",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"tests['CriarCliente_BadRequest'] = responseCode.code === 400"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{    \r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dataNascimento\": \"1958-02-25T00:00:00.000Z\",\r\n    \"documento\": \"98765432199\",\r\n    \"nome\": \"Novo cliente\"   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/cliente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"cliente"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:9000/cliente",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9000",
-					"path": [
-						"cliente"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Clientes",
-			"event": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"tests['ObterClientes'] = responseCode.code === 200"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:9000/cliente",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9000",
-					"path": [
-						"cliente"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Cliente by id",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"tests['ObterClientePeloId'] = responseCode.code === 200"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:9000/cliente/{{idclientenovo}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9000",
-					"path": [
-						"cliente",
-						"{{idclientenovo}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Cliente by id NotFound",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"tests['ObterCliente_DeveRetornarNotFound'] = responseCode.code === 404"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:9000/cliente/09934FBA-B190-4F8F-9E57-7E1178CB866",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9000",
-					"path": [
-						"cliente",
-						"09934FBA-B190-4F8F-9E57-7E1178CB866"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Put Cliente",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"tests['AtualizarCliente'] = responseCode.code === 200"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"dataNascimento\": \"1958-02-25T00:00:00.000Z\",\r\n    \"documento\": \"98765432199\",\r\n    \"nome\": \"Novo cliente Editado\",\r\n     \"id\": \"6DB30B31-8F92-4C71-810B-52CE6847F32C\"   \r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "Post Cliente Bad Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['CriarCliente_BadRequest'] = responseCode.code === 400"
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:9000/cliente/{{idclientenovo}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "9000",
-					"path": [
-						"cliente",
-						"{{idclientenovo}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Put Cliente Not Found",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"tests['AtualizarCliente_NotFound'] = responseCode.code === 404"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"dataNascimento\": \"1958-02-25T00:00:00.000Z\",\r\n    \"documento\": \"98765432199\",\r\n    \"nome\": \"Novo cliente Editado\",\r\n     \"id\": \"6DB30B31-8F92-4C71-810B-52CE6847F32\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/cliente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"cliente"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:9000/cliente/6DB30B31-8F92-4C71-810B-52CE6847F32",
-					"protocol": "http",
-					"host": [
-						"localhost"
+				{
+					"name": "Get Clientes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['ObterClientes'] = responseCode.code === 200"
+								],
+								"type": "text/javascript"
+							}
+						}
 					],
-					"port": "9000",
-					"path": [
-						"cliente",
-						"6DB30B31-8F92-4C71-810B-52CE6847F32"
-					]
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/cliente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"cliente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cliente by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['ObterClientePeloId'] = responseCode.code === 200"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/cliente/{{idclientenovo}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"cliente",
+								"{{idclientenovo}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cliente by id NotFound",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['ObterCliente_DeveRetornarNotFound'] = responseCode.code === 404"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/cliente/09934FBA-B190-4F8F-9E57-7E1178CB866",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"cliente",
+								"09934FBA-B190-4F8F-9E57-7E1178CB866"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Cliente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['AtualizarCliente'] = responseCode.code === 200"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dataNascimento\": \"1958-02-25T00:00:00.000Z\",\r\n    \"documento\": \"98765432199\",\r\n    \"nome\": \"Novo cliente Editado\",\r\n     \"id\": \"6DB30B31-8F92-4C71-810B-52CE6847F32C\"   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/cliente/{{idclientenovo}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"cliente",
+								"{{idclientenovo}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Cliente Not Found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['AtualizarCliente_NotFound'] = responseCode.code === 404"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dataNascimento\": \"1958-02-25T00:00:00.000Z\",\r\n    \"documento\": \"98765432199\",\r\n    \"nome\": \"Novo cliente Editado\",\r\n     \"id\": \"6DB30B31-8F92-4C71-810B-52CE6847F32\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/cliente/6DB30B31-8F92-4C71-810B-52CE6847F32",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"cliente",
+								"6DB30B31-8F92-4C71-810B-52CE6847F32"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Cliente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['ExcluirCliente'] = responseCode.code === 204"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/cliente/{{idclientenovo}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"cliente",
+								"{{idclientenovo}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Cliente Not Found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['ExcluirCliente_NotFound'] = responseCode.code === 404"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/cliente/{{idclientenovo}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"cliente",
+								"{{idclientenovo}}"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Delete Cliente",
-			"event": [
+			"name": "Produto",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"tests['ExcluirCliente'] = responseCode.code === 204"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:9000/cliente/{{idclientenovo}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
+					"name": "Post Produto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['CriarCliente'] = responseCode.code === 201\r",
+									"\r",
+									"pm.test('preencher idclientenovo', function () {\r",
+									"   pm.environment.set('idprodutonovo',pm.response.json().id );   \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
 					],
-					"port": "9000",
-					"path": [
-						"cliente",
-						"{{idclientenovo}}"
-					]
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"nome\": \"Produto Novo 1\",\r\n    \"valor\": 150.65\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/produto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"produto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Produto Bad Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['CriarCliente_BadRequest'] = responseCode.code === 400"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/produto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"produto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Produto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['ObterClientes'] = responseCode.code === 200"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/produto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"produto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Produto by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['ObterClientePeloId'] = responseCode.code === 200"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/produto/{{idprodutonovo}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"produto",
+								"{{idprodutonovo}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Produto by id NotFound",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['ObterCliente_DeveRetornarNotFound'] = responseCode.code === 404"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/produto/09934FBA-B190-4F8F-9E57-7E1178CB866",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"produto",
+								"09934FBA-B190-4F8F-9E57-7E1178CB866"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Produto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['AtualizarCliente'] = responseCode.code === 200"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Produto Novo Editado\",\r\n    \"valor\": 150.65,\r\n    \"id\": \"DB8CEB19-3012-4CFF-B315-6A1EE9F967BB\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/produto/{{idprodutonovo}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"produto",
+								"{{idprodutonovo}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Produto Not Found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['AtualizarCliente_NotFound'] = responseCode.code === 404"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dataNascimento\": \"1958-02-25T00:00:00.000Z\",\r\n    \"documento\": \"98765432199\",\r\n    \"nome\": \"Novo cliente Editado\",\r\n     \"id\": \"6DB30B31-8F92-4C71-810B-52CE6847F32\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/produto/6DB30B31-8F92-4C71-810B-52CE6847F32",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"produto",
+								"6DB30B31-8F92-4C71-810B-52CE6847F32"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Produto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['ExcluirCliente'] = responseCode.code === 204"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/produto/{{idprodutonovo}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"produto",
+								"{{idprodutonovo}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Cliente Not Found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['ExcluirCliente_NotFound'] = responseCode.code === 404"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/produto/{{idclientenovo}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"produto",
+								"{{idclientenovo}}"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Delete Cliente Not Found",
-			"event": [
+			"name": "Venda",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"tests['ExcluirCliente_NotFound'] = responseCode.code === 404"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:9000/cliente/{{idclientenovo}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
+					"name": "Post Cliente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['CriarCliente'] = responseCode.code === 201\r",
+									"\r",
+									"pm.test('preencher idclientenovo', function () {\r",
+									"   pm.environment.set('idclientenovo_venda',pm.response.json().id );   \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
 					],
-					"port": "9000",
-					"path": [
-						"cliente",
-						"{{idclientenovo}}"
-					]
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dataNascimento\": \"1958-02-25T00:00:00.000Z\",\r\n    \"documento\": \"98765432199\",\r\n    \"nome\": \"Novo cliente\"   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/cliente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"cliente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Venda",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['CriarVenda_teste'] = responseCode.code === 201\r",
+									"\r",
+									"pm.test('preencher idvendanovo', function () {\r",
+									"   pm.environment.set('idvendanovo',pm.response.json().id );   \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"dataVenda\": \"2021-02-25T00:00:00.000Z\",\r\n\t  \"cliente\": {\r\n\t\t\t\"dataNascimento\": \"1958-02-25T00:00:00.000Z\",\r\n\t\t\t\"documento\": \"98765432199\",\r\n\t\t\t\"nome\": \"Novo cliente para teste\",\r\n\t\t\t\"id\": \"{{idclientenovo_venda}}\"\r\n\t\t}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/venda",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"venda"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Venda Bad Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['CriarVenda_BadRequest'] = responseCode.code === 400"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/venda",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"venda"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Venda",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['ObterVendas'] = responseCode.code === 200"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/venda",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"venda"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Venda by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['ObterVendaPeloId'] = responseCode.code === 200"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/venda/{{idvendanovo}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"venda",
+								"{{idvendanovo}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Venda by id NotFound",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['ObterVenda_DeveRetornarNotFound'] = responseCode.code === 404"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/venda/09934FBA-B190-4F8F-9E57-7E1178CB866",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"venda",
+								"09934FBA-B190-4F8F-9E57-7E1178CB866"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Venda",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['AtualizarVenda'] = responseCode.code === 200"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"dataVenda\": \"2030-01-01T00:00:00.000Z\",\r\n\t  \"cliente\": {\r\n\t\t\t\"dataNascimento\": \"1958-02-25T00:00:00.000Z\",\r\n\t\t\t\"documento\": \"98765432199\",\r\n\t\t\t\"nome\": \"Novo cliente para teste\",\r\n\t\t\t\"id\": \"{{idclientenovo}}\"\r\n\t\t}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/venda/{{idvendanovo}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"venda",
+								"{{idvendanovo}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Venda Not Found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['AtualizarVenda_NotFound'] = responseCode.code === 404"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dataNascimento\": \"1958-02-25T00:00:00.000Z\",\r\n    \"documento\": \"98765432199\",\r\n    \"nome\": \"Novo cliente Editado\",\r\n     \"id\": \"6DB30B31-8F92-4C71-810B-52CE6847F32\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/venda/6DB30B31-8F92-4C71-810B-52CE6847F32",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"venda",
+								"6DB30B31-8F92-4C71-810B-52CE6847F32"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Venda",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['ExcluirVenda'] = responseCode.code === 204"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/venda/{{idvendanovo}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"venda",
+								"{{idvendanovo}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Venda Not Found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['ExcluirVenda_NotFound'] = responseCode.code === 404"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/venda/{{idvendanovo}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"venda",
+								"{{idvendanovo}}"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "Itens Vendidos",
+			"item": [
+				{
+					"name": "Post Produto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['CriarCliente'] = responseCode.code === 201\r",
+									"\r",
+									"pm.test('preencher idclientenovo', function () {\r",
+									"   pm.environment.set('idprodutonovo',pm.response.json().id );   \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"nome\": \"Produto Novo 1\",\r\n    \"valor\": 150.65\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/produto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"produto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Cliente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['CriarCliente'] = responseCode.code === 201\r",
+									"\r",
+									"pm.test('preencher idclientenovo', function () {\r",
+									"   pm.environment.set('idclientenovo',pm.response.json().id );   \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dataNascimento\": \"1958-02-25T00:00:00.000Z\",\r\n    \"documento\": \"98765432199\",\r\n    \"nome\": \"Novo cliente\"   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/cliente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"cliente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Venda",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['CriarVenda_teste'] = responseCode.code === 201\r",
+									"\r",
+									"pm.test('preencher idvendanovo', function () {\r",
+									"   pm.environment.set('idvendanovo',pm.response.json().id );   \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"dataVenda\": \"2021-02-25T00:00:00.000Z\",\r\n\t  \"cliente\": {\r\n\t\t\t\"dataNascimento\": \"1958-02-25T00:00:00.000Z\",\r\n\t\t\t\"documento\": \"98765432199\",\r\n\t\t\t\"nome\": \"Novo cliente para teste\",\r\n\t\t\t\"id\": \"{{idclientenovo}}\"\r\n\t\t}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/venda",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"venda"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Itens Vendidos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['CriarItensVendidos_teste'] = responseCode.code === 201\r",
+									"\r",
+									"pm.test('preencher iditensvendidosnovo', function () {\r",
+									"   pm.environment.set('iditensvendidosnovo',pm.response.json().id );   \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"produto\": {\r\n\t\t\t\"valor\": 150.99,\r\n\t\t\t\"nome\": \"Produto 2\",\r\n\t\t\t\"id\": \"{{idprodutonovo}}\"\r\n\t\t},  \r\n\t  \"venda\": {\r\n\t\t\t\"dataVenda\": \"2021-02-25T00:00:00.000Z\",\r\n\t\t\t\"cliente\": {\r\n\t\t\t\t\"dataNascimento\": \"1958-02-25T00:00:00.000Z\",\r\n\t\t\t\t\"documento\": \"98765432199\",\r\n\t\t\t\t\"nome\": \"cara novo 3\",\r\n\t\t\t\t\"id\": \"{{idclientenovo}}\"\r\n\t\t\t},\r\n\t\t\t\"id\": \"{{idvendanovo}}\"\r\n\t\t},\r\n  \"quantidade\": 3\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/itensvendidos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"itensvendidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Itens Vendidos Bad Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['ObterItensVendidosPeloId_BadRequest'] = responseCode.code === 400"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/itensvendidos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"itensvendidos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Itens Vendidos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['ObterItensVendidos'] = responseCode.code === 200"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/itensvendidos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"itensvendidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Itens Vendidos by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['ObterItensVendidosPeloId'] = responseCode.code === 200"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/itensvendidos/{{iditensvendidosnovo}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"itensvendidos",
+								"{{iditensvendidosnovo}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Itens Vendidos by id NotFound",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['ObterVenda_DeveRetornarNotFound'] = responseCode.code === 404"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/itensvendidos/09934FBA-B190-4F8F-9E57-7E1178CB866",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"itensvendidos",
+								"09934FBA-B190-4F8F-9E57-7E1178CB866"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Itens Vendidos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['AtualizarItensVendidos'] = responseCode.code === 200"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"produto\": {\r\n\t\t\t\"valor\": 150.99,\r\n\t\t\t\"nome\": \"Produto 2\",\r\n\t\t\t\"id\": \"{{idprodutonovo}}\"\r\n\t\t},  \r\n\t  \"venda\": {\r\n\t\t\t\"dataVenda\": \"2021-02-25T00:00:00.000Z\",\r\n\t\t\t\"cliente\": {\r\n\t\t\t\t\"dataNascimento\": \"1958-02-25T00:00:00.000Z\",\r\n\t\t\t\t\"documento\": \"98765432199\",\r\n\t\t\t\t\"nome\": \"cara novo 3\",\r\n\t\t\t\t\"id\": \"{{idclientenovo}}\"\r\n\t\t\t},\r\n\t\t\t\"id\": \"{{idvendanovo}}\"\r\n\t\t},\r\n  \"quantidade\": 3\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/itensvendidos/{{iditensvendidosnovo}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"itensvendidos",
+								"{{iditensvendidosnovo}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Itens Vendidos Not Found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['AtualizarItensVendidos_NotFound'] = responseCode.code === 404"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dataNascimento\": \"1958-02-25T00:00:00.000Z\",\r\n    \"documento\": \"98765432199\",\r\n    \"nome\": \"Novo cliente Editado\",\r\n     \"id\": \"6DB30B31-8F92-4C71-810B-52CE6847F32\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/itensvendidos/6DB30B31-8F92-4C71-810B-52CE6847F32",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"itensvendidos",
+								"6DB30B31-8F92-4C71-810B-52CE6847F32"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Itens Vendidos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['ExcluirItensVendidos'] = responseCode.code === 204"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/itensvendidos/{{iditensvendidosnovo}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"itensvendidos",
+								"{{iditensvendidosnovo}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Itens Vendidos Not Found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests['ExcluirItensVendidos_NotFound'] = responseCode.code === 404"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senhas",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "wallace",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/itensvendidos/{{iditensvendidosnovo}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"itensvendidos",
+								"{{iditensvendidosnovo}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

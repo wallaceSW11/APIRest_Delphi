@@ -37,14 +37,14 @@
     <Transaction>2021/10/30 19:28:54.000.115,C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Repositories\Repositories.Venda.pas</Transaction>
     <Transaction>2021/10/30 19:44:28.000.035,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
     <Transaction>2021/10/30 19:46:36.000.733,C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Controllers\Controllers.Venda.pas</Transaction>
-    <Transaction>2021/10/31 11:17:13.985,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
-    <Transaction>2021/10/31 11:17:53.411,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Repositories\Repositories.ItemVenda.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
-    <Transaction>2021/10/31 11:20:26.995,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Repositories\Repositories.ItensVendidos.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Repositories\Repositories.ItemVenda.pas</Transaction>
-    <Transaction>2021/10/31 11:42:04.366,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
-    <Transaction>2021/10/31 11:45:48.797,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Controllers\Controllers.ItensVendidos.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
-    <Transaction>2021/10/31 15:38:45.432,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
-    <Transaction>2021/10/31 15:39:11.747,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Helper\Helper.CurrencyHelper.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
-    <Transaction>2021/10/31 15:47:15.235,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Helper\Helper.NumberHelper.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Helper\Helper.CurrencyHelper.pas</Transaction>
+    <Transaction>2021/10/31 11:17:13.000.985,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/31 11:17:53.000.411,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Repositories\Repositories.ItemVenda.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/31 11:20:26.000.995,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Repositories\Repositories.ItensVendidos.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Repositories\Repositories.ItemVenda.pas</Transaction>
+    <Transaction>2021/10/31 11:42:04.000.366,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/31 11:45:48.000.797,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Controllers\Controllers.ItensVendidos.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/31 15:38:45.000.432,=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/31 15:39:11.000.747,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Helper\Helper.CurrencyHelper.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\Unit1.pas</Transaction>
+    <Transaction>2021/10/31 15:47:15.000.235,C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Helper\Helper.NumberHelper.pas=C:\dev\Projeto_APIDelphi\APIRest_Delphi\src\Helper\Helper.CurrencyHelper.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="src"/>

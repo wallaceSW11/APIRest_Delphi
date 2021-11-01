@@ -11,6 +11,8 @@ uses
   Rest.JSON,
   System.JSON,
   Horse.HandleException,
+  Horse.BasicAuthentication,
+  System.SysUtils,
   Models.Cliente in 'src\Models\Models.Cliente.pas',
   Models.Produto in 'src\Models\Models.Produto.pas',
   Models.Venda in 'src\Models\Models.Venda.pas',
@@ -43,7 +45,12 @@ begin
   THorse
     .Use(Jhonson)
     .Use(HorseSwagger)
-    .Use(HandleException);
+    .Use(HandleException)
+    .Use(HorseBasicAuthentication(
+      function(const AUsername, APassword: string): Boolean
+      begin
+        Result := AUsername.Equals('wallace') and APassword.Equals('senhas');
+      end));
 
   FControllerCliente := TControllerCliente.NovaInstancia();
   FControllerProduto := TControllerProduto.NovaInstancia();

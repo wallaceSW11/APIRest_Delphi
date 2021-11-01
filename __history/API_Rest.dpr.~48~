@@ -7,8 +7,12 @@ program API_Rest;
 uses
   Horse,
   Horse.Jhonson,
+  Horse.GBSwagger,
   Rest.JSON,
   System.JSON,
+  Horse.HandleException,
+  Horse.BasicAuthentication,
+  System.SysUtils,
   Models.Cliente in 'src\Models\Models.Cliente.pas',
   Models.Produto in 'src\Models\Models.Produto.pas',
   Models.Venda in 'src\Models\Models.Venda.pas',
@@ -25,22 +29,39 @@ uses
   Controllers.Produto in 'src\Controllers\Controllers.Produto.pas',
   Repositories.Venda in 'src\Repositories\Repositories.Venda.pas',
   Controllers.Venda in 'src\Controllers\Controllers.Venda.pas',
-  Repositories.ItemVenda in 'src\Repositories\Repositories.ItemVenda.pas';
+  Repositories.ItensVendidos in 'src\Repositories\Repositories.ItensVendidos.pas',
+  Controllers.ItensVendidos in 'src\Controllers\Controllers.ItensVendidos.pas',
+  Helper.NumberHelper in 'src\Helper\Helper.NumberHelper.pas';
 
 var
   FControllerCliente: IControllerCliente;
   FControllerProduto: IControllerProduto;
   FControllerVenda: IControllerVenda;
+  FControllerItensVendidos: IControllerItensVendidos;
 begin
   ReportMemoryLeaksOnShutdown := True;
   //IsConsole:= False;
 
-  THorse.Use(Jhonson());
+  THorse
+    .Use(Jhonson)
+    .Use(HorseSwagger)
+    .Use(HandleException);
+    .Use(HorseBasicAuthentication(
+      function(const AUsername, APassword: string): Boolean
+      begin
+        // Here inside you can access your database and validate if username and password are valid
+        Result := AUsername.Equals('wallace') and APassword.Equals('senhas');
+      end));
+
   FControllerCliente := TControllerCliente.NovaInstancia();
-  FControllerCliente.Routes();
   FControllerProduto := TControllerProduto.NovaInstancia();
-  FControllerProduto.Routes();
   FControllerVenda := TControllerVenda.NovaInstancia();
+  FControllerItensVendidos := TControllerItensVendidos.NovaInstancia();
+
+  FControllerCliente.Routes();
+  FControllerProduto.Routes();
   FControllerVenda.Routes();
+  FControllerItensVendidos.Routes();
+
   THorse.Listen(9000);
 end.

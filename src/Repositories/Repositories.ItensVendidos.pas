@@ -155,6 +155,7 @@ begin
 
   if (pItensVendidos = nil) then
   begin
+    FItensVendidos := TItensVendidos.Create();
     FItensVendidos.Produto := lProduto;
     FItensVendidos.Venda := lVenda;
     FItensVendidos.Quantidade := FDataSet.FieldByName('Quantidade').AsFloat;

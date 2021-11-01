@@ -7,13 +7,15 @@ uses
   Models.ItensVendidos,
   Models.Venda,
   Models.Produto,
+  Models.Cliente,
   System.Generics.Collections,
   Data.DB,
   Data.Win.ADODB,
   Contexto.Conexao.Interfaces,
   Repositories.Interfaces,
   Contexto.Query,
-  System.StrUtils;
+  System.StrUtils,
+  Helper.NumberHelper;
 
 type
   TRepositoryItensVendidos = class(TInterfacedObject, IRepositoryItensVendidos)
@@ -22,9 +24,8 @@ type
     FItensVendidos: TItensVendidos;
     FItensVendidoss: TObjectList<TItensVendidos>;
     FDataSet: TDataSet;
-    FProduto: TProduto;
-    FVenda: TVenda;
     constructor Create();
+    procedure PreencherItensVendidos(pItensVendidos: TItensVendidos = nil);
   public
     function ObterItensVendidoss(): TObjectList<TItensVendidos>;
     function ObterItensVendidosPorIdentificador(const pIdentificadorItensVendidos: string): TItensVendidos;
@@ -45,7 +46,7 @@ const
   UPDATE_ITENSVENDIDOS = 'Update ItensVendidos Set Produto=''%s'', Venda=''%s'', Quantidade=''%s'' Where id=''%s''';
 begin
   FQuery.Exec(Format(UPDATE_ITENSVENDIDOS, [
-    pItensVendidos.Produto.Id, pItensVendidos.Venda.Id, FloatToStr(pItensVendidos.Quantidade).Replace('.', '').Replace(',', '.'), pIdentificadorItensVendidos]));
+    pItensVendidos.Produto.Id, pItensVendidos.Venda.Id, pItensVendidos.Quantidade.FormatoBancoDeDados(), pIdentificadorItensVendidos]));
   Result := pItensVendidos;
 end;
 
@@ -78,7 +79,7 @@ const
     + sLineBreak + '  ''%s'')';
 begin
   FQuery.Exec(Format(INSERIR_ItensVendidos, [
-    pItensVendidos.Id, pItensVendidos.Produto.Id, pItensVendidos.Venda.Id, FloatToStr(pItensVendidos.Quantidade)]));
+    pItensVendidos.Id, pItensVendidos.Produto.Id, pItensVendidos.Venda.Id, pItensVendidos.Quantidade.FormatoBancoDeDados()]));
   Result := pItensVendidos;
 end;
 
@@ -101,28 +102,96 @@ end;
 
 function TRepositoryItensVendidos.ObterItensVendidosPorIdentificador(const pIdentificadorItensVendidos: string): TItensVendidos;
 const
-  SELECT_ItensVendidos_IDENTIFICADOR = 'Select Id, Produto, Venda, Quantidade From ItensVendidos Where Id=''%s''';
+  SELECT_ITENSVENDIDOS_IDENTIFICADOR =
+                   'Select'
+    + sLineBreak + '  P.Id as IdProduto,'
+    + sLineBreak + '  P.Nome as NomeProduto,'
+    + sLineBreak + '  P.Valor,'
+    + sLineBreak + '  I.Id as IdItensVendidos,'
+    + sLineBreak + '  I.Quantidade,'
+    + sLineBreak + '  V.Id as IdVenda,'
+    + sLineBreak + '  V.DataVenda,'
+    + sLineBreak + '  C.Id as IdCliente,'
+    + sLineBreak + '  C.Nome as NomeCliente,'
+    + sLineBreak + '  C.DataNascimento,'
+    + sLineBreak + '  C.Documento'
+    + sLineBreak + 'From'
+    + sLineBreak + '  ItensVendidos I Inner Join Produto P on (P.id = I.Produto)'
+    + sLineBreak + '                  Inner Join Venda V on (V.id = I.Venda)'
+    + sLineBreak + '                  Inner Join Cliente C on (C.id = V.Cliente)'
+    + sLineBreak + 'Where'
+    + sLineBreak + '  (I.id = ''%s'')';
 begin
-  FDataSet := FQuery.Query(Format(SELECT_ItensVendidos_IDENTIFICADOR, [pIdentificadorItensVendidos]));
+  FDataSet := FQuery.Query(Format(SELECT_ITENSVENDIDOS_IDENTIFICADOR, [pIdentificadorItensVendidos]));
 
   if (FDataSet.RecordCount = 0) then
     Exit(nil);
 
-  FItensVendidos := TItensVendidos.Create(
-    FProduto,
-    FVenda,
-    FDataSet.FieldByName('Quantidade').AsFloat,
-    FDataSet.FieldByName('Id').AsString);
+  PreencherItensVendidos();
   Result := FItensVendidos;
 end;
 
+procedure TRepositoryItensVendidos.PreencherItensVendidos(pItensVendidos: TItensVendidos);
+var
+  lProduto: TProduto;
+  lCliente: TCliente;
+  lVenda: TVenda;
+begin
+  lProduto := TProduto.Create(
+    FDataSet.FieldByName('NomeProduto').AsString,
+    FDataSet.FieldByName('Valor').AsFloat,
+    FDataSet.FieldByName('IdProduto').AsString);
+
+  lCliente := TCliente.Create(
+    FDataSet.FieldByName('NomeCliente').AsString,
+    FDataSet.FieldByName('DataNascimento').AsDateTime,
+    FDataSet.FieldByName('Documento').AsString,
+    FDataSet.FieldByName('IdCliente').AsString);
+
+  lVenda := TVenda.Create(
+    FDataSet.FieldByName('DataVenda').AsDateTime,
+    lCliente,
+    FDataSet.FieldByName('IdVenda').AsString);
+
+  if (pItensVendidos = nil) then
+  begin
+    FItensVendidos.Produto := lProduto;
+    FItensVendidos.Venda := lVenda;
+    FItensVendidos.Quantidade := FDataSet.FieldByName('Quantidade').AsFloat;
+    FItensVendidos.Id := FDataSet.FieldByName('IdItensVendidos').AsString;
+    Exit();
+  end;
+
+  pItensVendidos.Produto := lProduto;
+  pItensVendidos.Venda := lVenda;
+  pItensVendidos.Quantidade := FDataSet.FieldByName('Quantidade').AsFloat;
+  pItensVendidos.Id := FDataSet.FieldByName('IdItensVendidos').AsString;
+end;
+
+
 function TRepositoryItensVendidos.ObterItensVendidoss(): TObjectList<TItensVendidos>;
 const
-  SELECT_ITENSVENDIDOS_IDENTIFICADOR = 'Select Id, Nome, DataNascimento, Documento From ItensVendidos';
+  SELECT_ITENSVENDIDOS =
+                   'Select'
+    + sLineBreak + '  P.Id as IdProduto,'
+    + sLineBreak + '  P.Nome as NomeProduto,'
+    + sLineBreak + '  P.Valor,'
+    + sLineBreak + '  I.Id as IdItensVendidos,'
+    + sLineBreak + '  I.Quantidade,'
+    + sLineBreak + '  V.Id as IdVenda,'
+    + sLineBreak + '  V.DataVenda,'
+    + sLineBreak + '  C.Id as IdCliente,'
+    + sLineBreak + '  C.Nome as NomeCliente,'
+    + sLineBreak + '  C.DataNascimento,'
+    + sLineBreak + '  C.Documento'
+    + sLineBreak + 'From'
+    + sLineBreak + '  ItensVendidos I Inner Join Produto P on (P.id = I.Produto)'
+    + sLineBreak + '                  Inner Join Venda V on (V.id = I.Venda)'
+    + sLineBreak + '                  Inner Join Cliente C on (C.id = V.Cliente)';
 var
   lItensVendidos: TItensVendidos;
 begin
-  FDataSet := FQuery.Query(SELECT_ITENSVENDIDOS_IDENTIFICADOR);
+  FDataSet := FQuery.Query(SELECT_ITENSVENDIDOS);
 
   if (FDataSet.RecordCount = 0) then
     Exit(nil);
@@ -132,12 +201,8 @@ begin
 
   while (not FDataSet.Eof) do
   begin
-    lItensVendidos := TItensVendidos.Create(
-      FProduto,
-      FVenda,
-      FDataSet.FieldByName('Quantidade').AsFloat,
-      FDataSet.FieldByName('Id').AsString);
-
+    lItensVendidos := TItensVendidos.Create();
+    PreencherItensVendidos(lItensVendidos);
     FItensVendidoss.Add(lItensVendidos);
     FDataSet.Next();
   end;
@@ -146,3 +211,4 @@ begin
 end;
 
 end.
+

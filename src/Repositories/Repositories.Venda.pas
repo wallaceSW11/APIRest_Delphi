@@ -44,7 +44,7 @@ const
   UPDATE_VENDA = 'Update Venda Set DataVenda=''%s'', Cliente=''%s'' Where id=''%s''';
 begin
   FQuery.Exec(Format(UPDATE_VENDA, [
-    DateToStr(pVenda.DataVenda), pVenda.Cliente, pIdentificadorVenda]));
+    DateToStr(pVenda.DataVenda), pVenda.Cliente.Id, pIdentificadorVenda]));
   Result := pVenda;
 end;
 
@@ -63,7 +63,7 @@ end;
 
 function TRepositoryVenda.CriarVenda(const pVenda: TVenda): TVenda;
 const
-  INSERIR_Venda =
+  INSERIR_VENDA =
                    'Insert Into'
     + sLineBreak + '  Venda ('
     + sLineBreak + '  Id,'
@@ -74,7 +74,7 @@ const
     + sLineBreak + '  ''%s'','
     + sLineBreak + '  ''%s'')';
 begin
-  FQuery.Exec(Format(INSERIR_Venda, [pVenda.Id, DateToStr(pVenda.DataVenda), pVenda.Cliente.Id]));
+  FQuery.Exec(Format(INSERIR_VENDA, [pVenda.Id, DateToStr(pVenda.DataVenda), pVenda.Cliente.Id]));
   Result := pVenda;
 end;
 

@@ -84,8 +84,15 @@ procedure TControllerItensVendidos.CriarItensVendidos(Req: THorseRequest; Res: T
 const
   PRODUTO_NAO_LOCALIZADO = 'O produto informado no item vendido não foi localizado.';
   VENDA_NAO_LOCALIZADA = 'A venda informada no item vendido não foi localizada.';
+  MODELO_ITENSVENDIDOS_INVALIDO = 'Conteúdo de itens vendidos é inválido.';
 begin
   FItensVendidos := TJson.JsonToObject<TItensVendidos>(Req.Body<TJSONObject>);
+
+  if ((FItensVendidos.Produto = nil) or (FItensVendidos.Venda = nil)) then
+  begin
+    Res.Send(MODELO_ITENSVENDIDOS_INVALIDO).Status(THTTPStatus.BadRequest);
+    Exit();
+  end;
 
   if (not FRepositorioProduto.ProdutoExiste(FItensVendidos.Produto.Id)) then
   begin
